@@ -1,6 +1,6 @@
-.header{
-font-weight:bold;
-&__error{
-    color:red
-}
+.header {
+  font-weight: bold;
+  &__error {
+    color: var(--red);
+  }
 }

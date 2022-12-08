@@ -1,31 +1,31 @@
-.profileData{
-    border-bottom: 1px solid #EAEAEA;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px;
-    align-items: center;
+.profileData {
+  border-bottom: 1px solid var(--gray);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
 }
 
-.value{
-color: #999999;
+.value {
+  color:var(--gray);
 }
 
 .profileEditInput {
-    font-size: 13px;
-    color: #999999;
-    direction: rtl;
-    border-bottom: none;
+  font-size: 13px;
+  color: var(--dark-gray);
+  direction: rtl;
+  border-bottom: none;
 }
 .profileData:focus-within {
-    border-bottom: 2px solid #4285f4;
-  }
-
-.key{
-    white-space: nowrap;
+  border-bottom: 2px solid var(--blue);
 }
 
-.errors{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.key {
+  white-space: nowrap;
+}
+
+.errors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

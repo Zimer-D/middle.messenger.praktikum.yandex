@@ -12,8 +12,8 @@
 <body class="container">
     <div class="login">
         {{> "header/header" title='Вход' }}
-        {{> 'input/input' type='text' label='Логин'}}
-        {{> 'input/input' type='password' label='Пароль' }}
+        {{> 'input/input' type='text' label='Логин' value=''}}
+        {{> 'input/input' type='password' label='Пароль'  value=''}}
         {{> 'buttons/acceptButton' buttonText='Авторизоваться'}}
         {{> 'buttons/link' linkText='Нет аккаунта?' url='./register.hbs'}}
     </div>

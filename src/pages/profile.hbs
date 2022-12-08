@@ -5,8 +5,10 @@
 <div class="profile">
     <div class="profileTop">
         <div class="changeAvatar">
-    <a>{{> 'avatar/avatar'}}</a>
-    </div>
+            <a>
+                {{> 'avatar/avatar'}}
+            </a>
+        </div>
     {{> 'header/header' title='Иван'}}
     </div>
     <div>{{> 'profile/data' key='Почта' value='mail@yandex.ru'}}</div>
@@ -16,6 +18,6 @@
     <div>{{> 'profile/data' key='Имя в чате' value='Ivanich'}}</div>
     <div>{{> 'profile/data' key='Телефон' value='+79030000000'}}</div>
     <div>{{> 'buttons/link' url='./editProfile.hbs' linkText='Изменить данные'}}</div>
-<div>{{> 'buttons/link' url='./changePassword.hbs' linkText='Изменить пароль'}}</div>
-<div>{{> 'buttons/link' url='/' linkText='Выйти' }}</div>
+    <div>{{> 'buttons/link' url='./changePassword.hbs' linkText='Изменить пароль'}}</div>
+    <div>{{> 'buttons/link' url='/' linkText='Выйти' }}</div>
 </div>
