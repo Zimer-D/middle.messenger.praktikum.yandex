@@ -1,0 +1,14 @@
+{{!< register}}
+
+<div class="login">
+    {{> "header/header" title='Регистрация' }}
+     {{> 'input/input'placeholder="@" type='email' label='Почта'}}
+     {{> 'input/input'placeholder="Логин" type='text' label='Логин'}}
+     {{> 'input/input'placeholder="Имя" type='text' label='Имя'}}
+     {{> 'input/input'placeholder="Фамилия" type='text' label='Фамилия'}}
+     {{> 'input/input'placeholder="+7-###-##-##" type='text' label='Телефон'}}
+     {{> 'input/input'placeholder="Пароль" type='password' label='Пароль'}}
+     {{> 'input/input'placeholder="Пароль" type='password' label='Повторите пароль'}}
+     {{> 'buttons/acceptButton' buttonText='Зарегистрироваться'}}
+     {{> 'buttons/link' linkText='Войти' url='./login.hbs'}}
+</div>

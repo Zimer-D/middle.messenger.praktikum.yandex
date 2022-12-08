@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body class="container">
+    <div class="login">
+        {{> "header/header" title='Вход' }}
+        {{> 'input/input' type='text' label='Логин'}}
+        {{> 'input/input' type='password' label='Пароль' }}
+        {{> 'buttons/acceptButton' buttonText='Авторизоваться'}}
+        {{> 'buttons/link' linkText='Нет аккаунта?' url='./register.hbs'}}
+    </div>
+</body>
+
+</html>
