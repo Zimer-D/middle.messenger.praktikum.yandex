@@ -10,10 +10,12 @@
 :root {
   --gray: #eaeaea;
   --dark-gray: #afafaf;
+  --slight-gray: #fbfbfb;
   --almost-white: #efefef;
   --white: #fff;
   --red: red;
   --blue: #3369f3;
+  --outgoing-message: #e4edfd;
 }
 
 .login {
@@ -21,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid gray;
+  border: 2px solid var(--dark-gray);
   border-radius: 10px;
   width: 320px;
   -webkit-box-shadow: 4px 4px 8px 0px var(--dark-gray);
@@ -71,17 +73,17 @@
 }
 
 .contactList {
-  background-color: #fbfbfb;
-  border-right: 1px solid #eaeaea;
+  background-color: var(--slight-gray);
+  border-right: 1px solid var(--gray);
 }
 .modal {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fefefe;
+  background-color: var(--almost-white);
   margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--dark-gray);
   width: 320px;
   border-radius: 10px;
   & > *:not(:last-child) {

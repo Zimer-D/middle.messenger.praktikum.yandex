@@ -28,7 +28,7 @@
 .chatListItem {
   height: 71px;
   margin: 10px;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid var(--gray);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -57,14 +57,14 @@
 }
 .last-message,
 .chat-time {
-  color: #999;
+  color: var(--dark-gray);
   font-size: 12px;
 }
 .chat-unread {
   text-align: center;
   height: 20px;
   border-radius: 50%;
-  background-color: #3369f3;
+  background-color: var(--blue);
   width: 20px;
   color: #fff;
   font-size: 12px;
@@ -80,7 +80,7 @@
   justify-content: space-between;
   margin-left: 20px;
   margin-right: 20px;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid var(--gray);
   align-items: center;
 }
 
@@ -92,13 +92,13 @@
   padding-bottom: 20px;
   margin-left: 20px;
   margin-right: 20px;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid var(--gray);
   width: 95%;
 }
 
 .message {
   width: 95%;
-  background-color: #efefef;
+  background-color: var(--gray);
   border: none;
   border-radius: 30px;
   padding: 10px 10px 10px 5px;
@@ -113,10 +113,10 @@
 .fileToSend {
   position: absolute;
   bottom: 50px;
-  border: 1px solid #999;
+  border: 1px solid var(--dark-gray);
   border-radius: 10px;
   padding: 10px;
-  background-color: #fefefe;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -133,17 +133,17 @@
   align-items: flex-end;
 }
 .incomingMessage {
-  background-color: #f8f8f8;
+  background-color: var(--slight-gray);
   margin-left: 20px;
 }
 .outgoingMessage {
-  background-color: #e4edfd;
+  background-color: var(--outgoing-message);
   margin-left: auto;
   margin-right: 20px;
 }
 .message-time {
   font-size: 10px;
-  color: #908d8d;
+  color: var(--dark-gray);
 }
 .message-text {
   margin-right: 5px;
