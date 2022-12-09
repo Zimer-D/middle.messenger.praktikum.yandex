@@ -2,7 +2,9 @@
   "name": "chat",
   "version": "1.0.0",
   "description": "",
-  "engine": "v16.18.1",
+  "engines": {
+    "node":"v16.18.1"
+  },
   "scripts": {
     "dev": "parcel src/pages/index.hbs --no-cache",
     "start": "parcel build src/pages/index.hbs && node ./server.js",
