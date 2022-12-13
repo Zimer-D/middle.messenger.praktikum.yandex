@@ -1,0 +1,17 @@
+{{!< editProfile }} 
+
+
+
+{{> 'icons/back'  name='../assets/arrow-left.png' style='background-color:#3369F3'}}
+    <div class="profile">
+        <div class="profileTop">
+            {{> 'avatar/avatar'}}
+        </div>
+        <div>{{> 'profile/editProfile' key='Почта' type='email' value='mail@yandex.ru'}}</div>
+        <div>{{> 'profile/editProfile' key='Логин' type='text' value='ivanvi'}}</div>
+        <div>{{> 'profile/editProfile' key='Имя' type='text' value='Иван'}}</div>
+        <div>{{> 'profile/editProfile' key='Фамилия' type='text' value='Иванов'}}</div>
+        <div>{{> 'profile/editProfile' key='Имя в чате' type='text' value='Ivanich'}}</div>
+        <div>{{> 'profile/editProfile' key='Телефон' type='text' value='89030000000'}}</div>
+        <div>{{> 'buttons/acceptButton' url='/profile.hbs' buttonText='Сохранить'}}</div>
+    </div>

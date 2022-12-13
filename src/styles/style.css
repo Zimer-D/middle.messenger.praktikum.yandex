@@ -1,9 +1,106 @@
+@import "../partials/input/input.css";
+@import "../partials/header/header.css";
+@import "../partials/buttons/buttons.css";
+@import "../partials/profile/profile.css";
+@import "../partials/avatar/avatar.css";
+@import "../partials/icons/icons.css";
+@import "../partials/chat/chat.css";
+@import "../partials/modal/modal.css";
 
+:root {
+  --gray: #eaeaea;
+  --dark-gray: #afafaf;
+  --slight-gray: #fbfbfb;
+  --almost-white: #efefef;
+  --white: #fff;
+  --red: red;
+  --blue: #3369f3;
+  --outgoing-message: #e4edfd;
+}
 
-
-.header.header {
-    color: #9ed034;
-  }
 .login {
-    font-size: 30px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid var(--dark-gray);
+  border-radius: 10px;
+  width: 320px;
+  -webkit-box-shadow: 4px 4px 8px 0px var(--dark-gray);
+  -moz-box-shadow: 4px 4px 8px 0px var(--dark-gray);
+  box-shadow: 4px 4px 8px 0px var(--dark-gray);
+}
+.container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.profContainer {
+  position: relative;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.profile > * {
+  margin-bottom: 10px;
+}
+
+.profileTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chat-container {
+  display: flex;
+  margin: 0;
+}
+
+.chatt {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 310px auto;
+}
+
+.chat-area {
+  display: grid;
+  grid-template-rows: 72px auto 61px;
+}
+
+.contactList {
+  background-color: var(--slight-gray);
+  border-right: 1px solid var(--gray);
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--almost-white);
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid var(--dark-gray);
+  width: 320px;
+  border-radius: 10px;
+  & > *:not(:last-child) {
+    margin-bottom: 15px;
+  }
+}
+.modal-wrapper {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-gray);
+  background-color: var(--dark-gray);
+}
+
+.contact-list {
+  overflow-y: auto;
 }

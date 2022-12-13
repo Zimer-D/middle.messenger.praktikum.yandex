@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body class="chat-container">
+<div class="chatt">
+    <div class="contactList">
+        <div>
+            {{> 'chat/chatListHeader'}}
+        </div>
+        <div class="contact-list">
+            {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+             {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+              {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+               {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+        </div>
+    </div>
+    <div class="chat-area">
+            {{> 'chat/chatAreaHeader' nickName='Вася'}}
+            {{> 'chat/chatArea'}}
+            {{> 'chat/chatAreaFooter'}}
+
+    </div>
+</div>
+</body>
+
+</html>

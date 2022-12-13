@@ -1,0 +1,21 @@
+{{!< chat}}
+
+
+<div class="chatt">
+    <div class="contactList">
+        <div>
+            {{> 'chat/chatListHeader'}}
+        </div>
+        <div class="contact-list">
+            {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+            {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+            {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+            {{> 'chat/chatListItem' name='Вася' lastMessage='перезвони' timeLastMessage='12:10' unread='1'}}
+        </div>
+    </div>
+    <div class="chat-area">
+            {{> 'chat/chatAreaHeader' nickName='Вася'}}
+            {{> 'chat/chatArea'}}
+            {{> 'chat/chatAreaFooter'}}
+    </div>
+</div>

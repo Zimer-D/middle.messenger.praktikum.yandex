@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body class="container  profContainer">
+    {{> 'icons/back' name='../assets/arrow-left.png' style='background-color:#3369F3'}}
+    <div class="profile">
+        <div class="profileTop">
+            <div  class="changeAvatar">
+          <a>{{> 'avatar/avatar'}}</a>
+          </div>
+            {{> 'header/header' title='Иван'}}
+        </div>
+        <div>{{> 'profile/data' key='Почта' value='mail@yandex.ru'}}</div>
+        <div>{{> 'profile/data' key='Логин' value='ivanvi'}}</div>
+        <div>{{> 'profile/data' key='Имя' value='Иван'}}</div>
+        <div>{{> 'profile/data' key='Фамилия' value='Иванов'}}</div>
+        <div>{{> 'profile/data' key='Имя в чате' value='Ivanich'}}</div>
+        <div>{{> 'profile/data' key='Телефон' value='89030000000'}}</div>
+        <div>{{> 'buttons/link' url='./editProfile.hbs' linkText='Изменить данные'}}</div>
+        <div>{{> 'buttons/link' url='./changePassword.hbs' linkText='Изменить пароль'}}</div>
+        <div>{{> 'buttons/link' url='/' linkText='Выйти'}}</div>
+    </div>
+</body>
+
+</html>

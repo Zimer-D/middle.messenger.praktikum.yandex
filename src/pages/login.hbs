@@ -1,5 +1,9 @@
+{{!< login}}
+
 <div class="login">
-    {{> "header/header" }}
-    {{> 'input/input'}}
-    {{> 'buttons/acceptButton'}}
+    {{> "header/header" title='Вход'}}
+    {{> 'input/input' type='text' label='Логин' value=''}}
+    {{> 'input/input' type='password'  label='Пароль' value=''}}
+    {{> 'buttons/acceptButton' buttonText='Авторизоваться'}}
+    {{> 'buttons/link' linkText='Нет аккаунта?' url='./register.hbs' }}
 </div>

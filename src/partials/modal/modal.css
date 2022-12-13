@@ -1,0 +1,25 @@
+.filename {
+  margin-bottom: 15px;
+  color: var(--dark-gray);
+}
+
+.itemToSend {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 5px 10px 2px var(--dark-gray);
+  }
+}
+
+.user-actions {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  border: 1px solid  var(--gray);
+  border-radius: 10px;
+  padding: 10px;
+  background-color: var(--alomost-white);
+  display: flex;
+  flex-direction: column;
+}

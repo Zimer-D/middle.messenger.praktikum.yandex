@@ -1,0 +1,31 @@
+.profileData {
+  border-bottom: 1px solid var(--gray);
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  align-items: center;
+}
+
+.value {
+  color:var(--dark-gray);
+}
+
+.profileEditInput {
+  font-size: 13px;
+  color: var(--dark-gray);
+  direction: rtl;
+  border-bottom: none;
+}
+.profileData:focus-within {
+  border-bottom: 2px solid var(--blue);
+}
+
+.key {
+  white-space: nowrap;
+}
+
+.errors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
