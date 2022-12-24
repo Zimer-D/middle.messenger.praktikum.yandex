@@ -59,6 +59,7 @@
 .chat-time {
   color: var(--dark-gray);
   font-size: 12px;
+  white-space: nowrap;
 }
 .chat-unread {
   text-align: center;
@@ -73,6 +74,9 @@
   flex-direction: column;
   justify-content: center;
   float: right;
+  &__0{
+    height: 20px;
+  }
 }
 .chatAreaHeader {
   display: flex;
@@ -147,4 +151,13 @@
 }
 .message-text {
   margin-right: 5px;
+}
+.icon > img {
+  border-radius: 50%;
+  padding: 5px;
+  height: 20px;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 0px 5px 10px 2px var(--dark-gray);
+  }
 }
