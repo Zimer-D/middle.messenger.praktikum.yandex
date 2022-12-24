@@ -5,6 +5,9 @@ import { Input } from "../../components/input/input";
 import Block from "../../core/block/Block";
 import { validateLogin, validatePassword } from "../../utils/Validation";
 
+
+
+
 export default class Login extends Block {
   errors = new Array();
   constructor(props: TProps) {

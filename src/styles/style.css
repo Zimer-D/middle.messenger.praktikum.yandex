@@ -1,11 +1,4 @@
-@import "../partials/input/input.css";
-@import "../partials/header/header.css";
-@import "../partials/buttons/buttons.css";
-@import "../partials/profile/profile.css";
-@import "../partials/avatar/avatar.css";
-@import "../partials/icons/icons.css";
-@import "../partials/chat/chat.css";
-@import "../partials/modal/modal.css";
+
 
 :root {
   --gray: #eaeaea;

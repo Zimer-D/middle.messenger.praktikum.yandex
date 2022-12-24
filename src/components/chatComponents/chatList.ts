@@ -1,7 +1,7 @@
 import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./chat.css";
-// @ts-expect-error
+//@ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 
 export class ChatList extends Block {
@@ -22,7 +22,7 @@ export class ChatList extends Block {
                      ` 
                <div class="chatListItem">
                     <div class="chat-avatar">
-                        <img alt="avatar" src=${Avatar}/>
+                    <img src=${Avatar} alt="noavatar" />
                     </div>
                     <div class="chat-1">
                         <div class="chat-name">${item.name}</div>

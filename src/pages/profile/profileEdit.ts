@@ -225,7 +225,7 @@ export default class EditProfile extends Block {
         <div class='container'>   
             <div class="profile">
                 <div class="avatar">
-                <img alt="avatar" class="avatarImage" src=${Avatar}/>
+                <img src=${Avatar} alt="avatar" class="avatarImage" />
             </div>
             <div style='margin: 0 auto'><% this.header %></div>
             <form id='profileForm'>

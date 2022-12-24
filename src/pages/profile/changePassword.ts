@@ -170,7 +170,7 @@ export default class ChangePassword extends Block {
         <div class='container'>   
             <div class="profile">
                 <div class="avatar">
-                    <img alt="avatar" class="avatarImage" src=${Avatar}/>
+                    <img src=${Avatar} alt="avatar" class="avatarImage" />
                 </div>
                 <% this.header %>
                 <form id='changePassword'>

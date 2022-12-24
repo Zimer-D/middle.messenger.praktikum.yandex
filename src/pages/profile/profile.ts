@@ -100,7 +100,7 @@ export default class Profile extends Block {
         <div class='container'>  
             <div class="profile">
                 <div class="avatar">
-                    <img alt="avatar" class="avatarImage" src=${Avatar}/>
+                    <img src=${Avatar} alt="avatar" class="avatarImage" />
                     <a href="./changeAvatar.hbs" class="img__description">Поменять аватар</a>
                 </div>
                     <div style='margin: 0 auto'><% this.header %></div>

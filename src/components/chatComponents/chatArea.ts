@@ -14,7 +14,7 @@ import DoubleChecked from "../../../static/assets/doublechecked.png";
 // @ts-expect-error
 import ArrowRight from "../../../static/assets/arrowright.png";
 // @ts-expect-error
-import avatar from "../../../static/assets/avatar.png";
+import Avatar from "../../../static/assets/avatar.png";
 
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.getElementById("bottomModal");
@@ -49,14 +49,14 @@ export class ChatArea extends Block {
         <div  class="chatAreaHeader">
         <div class="chat-title">
                 <div class="chat-avatar">
-                    <img alt="avatar" src=${avatar}/>
+                <img src=${Avatar} alt="noavatar" />
                 </div>
                 <div>
                     ${this.props.name}
                 </div>
         </div>
     <div class='icon'  id='topModal'>
-            <img alt='icon'  src=${more}/>
+            <img src=${more} alt='icon'/>
     <%this.userActions %>
     </div>
     </div>
@@ -88,11 +88,11 @@ export class ChatArea extends Block {
 <% this.fileToSend %>
 
      <div  id='bottomModal'  class='icon' >
-       <img alt='icon'  src=${PaperClip}/>
+       <img src=${PaperClip} alt='icon'/>
      </div>
      <input class="message" type="text" placeholder="Сообщение" />
      <div class='icon' >
-        <img alt='icon'  src=${ArrowRight}/>
+        <img src=${ArrowRight} alt='icon'/>
      </div>
  </div>
  
