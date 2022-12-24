@@ -6,16 +6,16 @@ import Block from "../../core/block/Block";
 import { validateLogin, validatePassword } from "../../utils/Validation";
 
 export default class Login extends Block {
-  errors = new Array;
+  errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
-      loginValue: '',
-      passwordValue: '',
+      loginValue: "",
+      passwordValue: "",
     };
 
     const customEvents = [
       {
-        selector: '#loginForm',
+        selector: "#loginForm",
         events: {
           submit: (e: any) => {
             e.preventDefault();
@@ -32,21 +32,23 @@ export default class Login extends Block {
   }
 
   handleSubmit(target: any) {
-    
-    const x = Object.keys(target).map(key => {
+    const x = Object.keys(target).map((key) => {
       return target[key];
-    })
-    const myTarget = x.filter(q=>q.nodeName==='INPUT')
-    const valid = (this.errors.filter(n => n).length == 0 && !myTarget.filter(q => q.value === ''));
+    });
+    const myTarget = x.filter((q) => q.nodeName === "INPUT");
+    const valid =
+      this.errors.filter((n) => n).length == 0 &&
+      !myTarget.filter((q) => q.value === "");
     const formData = {};
 
     if (valid) {
       Object.entries(target).forEach(([key, child]) => {
         // @ts-ignore
-        if (child.nodeName === 'INPUT') {
-
+        if (child.nodeName === "INPUT") {
           // @ts-ignore
-          if (!child.value) { this.errors.push("Заполните пустые поля") }
+          if (!child.value) {
+            this.errors.push("Заполните пустые поля");
+          }
           // @ts-ignore
           formData[child.name] = child.value;
         }
@@ -54,14 +56,16 @@ export default class Login extends Block {
 
       console.log(formData);
     } else {
-      this.errors.push('Заполните пустые поля');
+      this.errors.push("Заполните пустые поля");
       this.render();
       return this.errors;
     }
   }
   showErrors() {
-    const uniqErrors = [...new Set(this.errors)]
-    const errMsg = uniqErrors.map((q) => (`<div class='errorMessage'>${q}</div>`)).join(" ");
+    const uniqErrors = [...new Set(this.errors)];
+    const errMsg = uniqErrors
+      .map((q) => `<div class='errorMessage'>${q}</div>`)
+      .join(" ");
     const errBlock = document?.getElementById("submitErrors");
     if (errBlock) {
       errBlock.innerHTML = errMsg;
@@ -71,9 +75,9 @@ export default class Login extends Block {
 
   render() {
     const login = new Input({
-      label: 'Логин',
-      type: 'text',
-      name: 'login',
+      label: "Логин",
+      type: "text",
+      name: "login",
       errors: this.errors,
       value: this.props.loginValue,
       events: {
@@ -88,15 +92,15 @@ export default class Login extends Block {
             const errorMessage = validateLogin(this.props.loginValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
 
     const password = new Input({
-      label: 'Пароль',
-      type: 'password',
-      name: 'password',
+      label: "Пароль",
+      type: "password",
+      name: "password",
       errors: this.errors,
       value: this.props.passwordValue,
       events: {
@@ -111,25 +115,25 @@ export default class Login extends Block {
             const errorMessage = validatePassword(this.props.passwordValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const button = new Button({
-      type: 'submit',
-      text: 'Войти'
-    })
+      type: "submit",
+      text: "Войти",
+    });
 
     const header = new Header({
-      text: 'Войти'
-    })
+      text: "Войти",
+    });
 
     this.children.login = login;
     this.children.password = password;
     this.children.button = button;
     this.children.header = header;
     const ctx = this.children;
-    this.showErrors()
+    this.showErrors();
     const temp = `
       <div class='container'>
         <div class="login">

@@ -1,12 +1,9 @@
-import Block from '../../core/block/Block';
-import './input.css'
-
-
+import Block from "../../core/block/Block";
+import "./input.css";
 
 export class Input extends Block {
-  
-    render() {
-        const temp = `<div class="input-group">
+  render() {
+    const temp = `<div class="input-group">
                         <input 
                         type="<% this.type %>" 
                         class="text-input"
@@ -21,4 +18,6 @@ export class Input extends Block {
                             </div>
                             `;
 
-        return this.compile(temp, this.props);}}
+    return this.compile(temp, this.props);
+  }
+}

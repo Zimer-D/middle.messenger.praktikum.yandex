@@ -30,7 +30,7 @@
   -webkit-transition: 0.2s ease all;
 }
 
-.text-input:focus ~ .input-label{
+.text-input:focus ~ .input-label {
   top: -12px;
   font-size: 10px;
   color: var(--dark-gray);
@@ -121,13 +121,13 @@
 .fileInput::before {
   content: "Выбрать файл на компьютере";
   display: inline-block;
-  background: linear-gradient(top, var(--almost-white),  var(--gray));
+  background: linear-gradient(top, var(--almost-white), var(--gray));
   border: none;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
   cursor: pointer;
-  text-shadow: 1px 1px  var(--white);
+  text-shadow: 1px 1px var(--white);
   font-weight: 700;
   font-size: 10pt;
   color: var(--blue);

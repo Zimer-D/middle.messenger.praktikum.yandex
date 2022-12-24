@@ -1,16 +1,15 @@
-import Block from '../core/block/Block';
-
+import Block from "../core/block/Block";
 
 export default class MainPage extends Block {
   render() {
     const temp = `
     <ul>
-    <li>
-        <a href="./login">Login page</a>
-    </li>
-    <li>
-        <a href="./register">Register page</a>
-    </li>
+        <li>
+            <a href="./login">Login page</a>
+        </li>
+        <li>
+            <a href="./register">Register page</a>
+        </li>
     <li> Error pages
         <ul>
             <li><a href="./404">404</a></li>
@@ -31,7 +30,7 @@ export default class MainPage extends Block {
         </ul>
     </li>
     <li>
-        <a href="./chat>Chat</a>
+        <a href="./chat">Chat</a>
     </li>
 </ul>
        `;

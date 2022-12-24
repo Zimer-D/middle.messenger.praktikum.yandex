@@ -1,11 +1,9 @@
-import Block from '../../core/block/Block';
-import './buttons.css'
-
+import Block from "../../core/block/Block";
+import "./buttons.css";
 
 export class Button extends Block {
-
-    render() {
-        const temp =`
+  render() {
+    const temp = `
     <div class="buttonWrapper">
         <button 
         type='<% this.type %>' 
@@ -16,4 +14,6 @@ export class Button extends Block {
         </button>
      </div>
       `;
-      return this.compile(temp, this.props);}}
+    return this.compile(temp, this.props);
+  }
+}

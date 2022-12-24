@@ -105,8 +105,8 @@
   overflow-y: auto;
 }
 
-.errorMessage{
+.errorMessage {
   color: var(--red);
-    font-size: 11px;
-    margin-top: 10px;
+  font-size: 11px;
+  margin-top: 10px;
 }

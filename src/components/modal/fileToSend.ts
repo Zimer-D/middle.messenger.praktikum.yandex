@@ -1,17 +1,15 @@
-import Block from '../../core/block/Block';
-import './modal.css'
+import Block from "../../core/block/Block";
+import "./modal.css";
 // @ts-expect-error
-import Image from '../../../static/assets/image.png';
+import Image from "../../../static/assets/image.png";
 // @ts-expect-error
-import Document from '../../../static/assets/document.png';
+import Document from "../../../static/assets/document.png";
 // @ts-expect-error
-import Location from '../../../static/assets/location.png';
-
+import Location from "../../../static/assets/location.png";
 
 export class FileToSend extends Block {
-
-    render() {
-        const temp = `
+  render() {
+    const temp = `
         <div id='fileToSend' class="fileToSend">
             <div class="itemToSend">
                     <div class='icon'>
@@ -39,6 +37,6 @@ export class FileToSend extends Block {
                 </div>
             </div>
            `;
-        return this.compile(temp, {});
-      }
-    }
+    return this.compile(temp, {});
+  }
+}

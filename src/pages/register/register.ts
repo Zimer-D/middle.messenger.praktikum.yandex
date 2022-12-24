@@ -3,23 +3,28 @@ import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { Input } from "../../components/input/input";
 import Block from "../../core/block/Block";
-import { validateEmail, validateLogin, validateName, validatePassword } from "../../utils/Validation";
+import {
+  validateEmail,
+  validateLogin,
+  validateName,
+  validatePassword,
+} from "../../utils/Validation";
 
 export default class Register extends Block {
-  errors = new Array;
+  errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
-      emailValue: '',
-      loginValue: '',
-      firstNameValue: '',
-      secondNameValue: '',
-      passwordValue: '',
-      confirmPasswordValue: '',
+      emailValue: "",
+      loginValue: "",
+      firstNameValue: "",
+      secondNameValue: "",
+      passwordValue: "",
+      confirmPasswordValue: "",
     };
 
     const customEvents = [
       {
-        selector: '#registerForm',
+        selector: "#registerForm",
         events: {
           submit: (e: any) => {
             e.preventDefault();
@@ -31,30 +36,30 @@ export default class Register extends Block {
       },
     ];
 
-
     const propsAndChildren = { ...props, ...defaultValues };
 
     super(propsAndChildren, customEvents);
-
-
   }
 
   handleSubmit(target: any) {
-    const x = Object.keys(target).map(key => {
+    const x = Object.keys(target).map((key) => {
       return target[key];
-    })
-    const myTarget = x.filter(q=>q.nodeName==='INPUT')
-    const valid = (this.errors.filter(n => n).length == 0 && !myTarget.filter(q => q.value === ''));
+    });
+    const myTarget = x.filter((q) => q.nodeName === "INPUT");
+    const valid =
+      this.errors.filter((n) => n).length == 0 &&
+      !myTarget.filter((q) => q.value === "");
     const formData = {};
 
     if (valid) {
       Object.entries(target).forEach(([key, child]) => {
-        console.log(key, child)
+        console.log(key, child);
         // @ts-ignore
-        if (child.nodeName === 'INPUT') {
-
+        if (child.nodeName === "INPUT") {
           // @ts-ignore
-          if (!child.value) { this.errors.push("Заполните пустые поля") }
+          if (!child.value) {
+            this.errors.push("Заполните пустые поля");
+          }
           // @ts-ignore
           formData[child.name] = child.value;
         }
@@ -62,7 +67,7 @@ export default class Register extends Block {
 
       console.log(formData);
     } else {
-      this.errors.push('Заполните пустые поля');
+      this.errors.push("Заполните пустые поля");
       console.log(44, this.errors);
       this.render();
       return this.errors;
@@ -70,8 +75,10 @@ export default class Register extends Block {
   }
 
   showErrors() {
-    const uniqErrors = [...new Set(this.errors)]
-    const errMsg = uniqErrors.map((q) => (`<div class='errorMessage'>${q}</div>`)).join(" ");
+    const uniqErrors = [...new Set(this.errors)];
+    const errMsg = uniqErrors
+      .map((q) => `<div class='errorMessage'>${q}</div>`)
+      .join(" ");
     const errBlock = document?.getElementById("submitErrors");
     if (errBlock) {
       errBlock.innerHTML = errMsg;
@@ -81,9 +88,9 @@ export default class Register extends Block {
 
   render() {
     const email = new Input({
-      label: 'Адрес электронной почты',
-      type: 'text',
-      name: 'email',
+      label: "Адрес электронной почты",
+      type: "text",
+      name: "email",
       errors: this.errors,
       value: this.props.emailValue,
       events: {
@@ -95,18 +102,18 @@ export default class Register extends Block {
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validateEmail(this.props.emailValue)
-            this.errors.push(errorMessage)
+            const errorMessage = validateEmail(this.props.emailValue);
+            this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
 
     const login = new Input({
-      label: 'Логин',
-      type: 'text',
-      name: 'login',
+      label: "Логин",
+      type: "text",
+      name: "login",
       errors: this.errors,
       value: this.props.loginValue,
       events: {
@@ -118,17 +125,17 @@ export default class Register extends Block {
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validateLogin(this.props.loginValue)
+            const errorMessage = validateLogin(this.props.loginValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const first_name = new Input({
-      label: 'Имя',
-      type: 'text',
-      name: 'first_name',
+      label: "Имя",
+      type: "text",
+      name: "first_name",
       errors: this.errors,
       value: this.props.firstNameValue,
       events: {
@@ -140,17 +147,17 @@ export default class Register extends Block {
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validateName(this.props.firstNameValue)
+            const errorMessage = validateName(this.props.firstNameValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const second_name = new Input({
-      label: 'Фамилия',
-      type: 'text',
-      name: 'second_name',
+      label: "Фамилия",
+      type: "text",
+      name: "second_name",
       errors: this.errors,
       value: this.props.secondNameValue,
       events: {
@@ -162,17 +169,17 @@ export default class Register extends Block {
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validateName(this.props.secondNameValue)
+            const errorMessage = validateName(this.props.secondNameValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const password = new Input({
-      label: 'Пароль',
-      type: 'password',
-      name: 'password',
+      label: "Пароль",
+      type: "password",
+      name: "password",
       errors: this.errors,
       value: this.props.passwordValue,
       events: {
@@ -184,43 +191,47 @@ export default class Register extends Block {
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validatePassword(this.props.passwordValue)
+            const errorMessage = validatePassword(this.props.passwordValue);
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const confirmPassword = new Input({
-      label: 'Повторите пароль',
-      type: 'password',
-      name: 'confirm_password',
+      label: "Повторите пароль",
+      type: "password",
+      name: "confirm_password",
       errors: this.errors,
       value: this.props.confirmPasswordValue,
       events: {
         blur: (e: any) => {
           this.setProps({ confirmPasswordValue: e.target.value });
-          const errorMessage = validatePassword(this.props.confirmPasswordValue);
+          const errorMessage = validatePassword(
+            this.props.confirmPasswordValue
+          );
           this.errors.push(errorMessage);
           this.showErrors();
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validatePassword(this.props.confirmPasswordValue)
+            const errorMessage = validatePassword(
+              this.props.confirmPasswordValue
+            );
             this.errors.push(errorMessage);
             this.showErrors();
-          }, 10000)
+          }, 10000);
         },
       },
     });
     const button = new Button({
-      type: 'submit',
-      text: 'Зарегистрироваться'
-    })
+      type: "submit",
+      text: "Зарегистрироваться",
+    });
 
     const header = new Header({
-      text: 'Регистрация'
-    })
+      text: "Регистрация",
+    });
     this.children.email = email;
     this.children.login = login;
     this.children.firstName = first_name;
@@ -230,7 +241,7 @@ export default class Register extends Block {
     this.children.button = button;
     this.children.header = header;
     const ctx = this.children;
-    this.showErrors()
+    this.showErrors();
 
     let temp = `
         <div class='container'>
@@ -254,4 +265,3 @@ export default class Register extends Block {
     return this.compile(temp, ctx);
   }
 }
-

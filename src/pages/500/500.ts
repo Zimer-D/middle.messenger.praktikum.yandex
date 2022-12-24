@@ -1,5 +1,4 @@
-import Block from '../../core/block/Block';
-
+import Block from "../../core/block/Block";
 
 export default class Error500 extends Block {
   render() {

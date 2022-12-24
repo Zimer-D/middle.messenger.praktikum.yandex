@@ -1,14 +1,12 @@
-import Block from '../../core/block/Block';
-import './modal.css'
+import Block from "../../core/block/Block";
+import "./modal.css";
 // @ts-expect-error
-import Add from '../../../static/assets/add.png';
+import Add from "../../../static/assets/add.png";
 // @ts-expect-error
-import XMark from '../../../static/assets/xmark.png';
+import XMark from "../../../static/assets/xmark.png";
 export class UserActions extends Block {
-
-
-    render() {
-        const temp = `
+  render() {
+    const temp = `
         <div  id='userActions'class="user-actions">
             <div class="itemToSend">
                 <div class='icon'>
@@ -27,6 +25,6 @@ export class UserActions extends Block {
             </div>
     </div>
            `;
-        return this.compile(temp, {});
-      }
-    }
+    return this.compile(temp, {});
+  }
+}

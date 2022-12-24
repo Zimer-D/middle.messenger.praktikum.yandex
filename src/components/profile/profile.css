@@ -7,11 +7,11 @@
 }
 
 .value {
-  color:var(--dark-gray);
+  color: var(--dark-gray);
 }
 
 .profileEditInput {
-  font-size: 13px  !important;
+  font-size: 13px !important;
   color: var(--dark-gray);
   direction: rtl;
   border-bottom: none !important;
@@ -29,6 +29,6 @@
   flex-direction: column;
   align-items: center;
 }
-.avatar{
+.avatar {
   margin: 0 auto;
 }

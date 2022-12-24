@@ -1,11 +1,9 @@
-import Block from '../../core/block/Block';
-import './profile.css'
-
+import Block from "../../core/block/Block";
+import "./profile.css";
 
 export class ProfileEdit extends Block {
-
-    render() {
-        const temp =`   
+  render() {
+    const temp = `   
     <div class="profileData">
     <div class="key">
     <% this.key %>
@@ -18,4 +16,6 @@ export class ProfileEdit extends Block {
     >
 </div>
       `;
-      return this.compile(temp, this.props);}}
+    return this.compile(temp, this.props);
+  }
+}

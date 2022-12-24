@@ -1,9 +1,9 @@
-import Block from '../../core/block/Block';
-import './icons.css'
+import Block from "../../core/block/Block";
+import "./icons.css";
 
 type IconProps = {
-    style: string,
-    name: string,
+  style: string;
+  name: string;
 };
 
 //   type ComponentProps = ButtonProps & {
@@ -13,22 +13,20 @@ type IconProps = {
 //   };
 
 export class Icon extends Block {
+  constructor(props: IconProps) {
+    super({
+      ...props,
+    });
+  }
 
-    constructor(props: IconProps) {
-        super({
-            ...props,
-        });
-    }
-
-    render() {
-        return `
+  render() {
+    return `
         <div class="iconWrapper">
             <a class="icon" href="/">
                 <img alt="arrow" style={{style}} src={{ name }} />
             </a>
         </div>
       `;
-    }
-
+  }
 }
-export default Icon
+export default Icon;

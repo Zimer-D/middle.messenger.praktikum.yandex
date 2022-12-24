@@ -1,35 +1,31 @@
-import { Button } from '../../components/buttons/button';
-import { Header } from '../../components/header/header';
-import Block from '../../core/block/Block';
-import './modal.css'
+import { Button } from "../../components/buttons/button";
+import { Header } from "../../components/header/header";
+import Block from "../../core/block/Block";
+import "./modal.css";
 
 type ModalProps = {
-    type: string,
+  type: string;
 };
 
-
 export class Modal extends Block {
+  constructor(props: ModalProps) {
+    super({
+      ...props,
+    });
+  }
 
-    constructor(props: ModalProps) {
-        super({
-            ...props,
-        });
-    }
-
-
-
-    render() {
-        const header = new Header ({
-            text:'<% this.text  %>'
-          });
-          const button = new Button ({
-            text: '<% this.buttonText %>',
-            type: 'submit'
-        })
-        this.children.button = button;
-        this.children.header = header;
-      const ctx = this.children;
-        const temp = `
+  render() {
+    const header = new Header({
+      text: "<% this.text  %>",
+    });
+    const button = new Button({
+      text: "<% this.buttonText %>",
+      type: "submit",
+    });
+    this.children.button = button;
+    this.children.header = header;
+    const ctx = this.children;
+    const temp = `
         <div class="modal-wrapper">
             <div class="modal">
                 <% this.header %>
@@ -40,6 +36,6 @@ export class Modal extends Block {
             </div>
         </div>
            `;
-        return this.compile(temp, ctx);
-      }
-    }
+    return this.compile(temp, ctx);
+  }
+}

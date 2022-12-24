@@ -1,13 +1,12 @@
-import { TProps } from '../../../types/types';
-import Block from '../../core/block/Block';
-import './chat.css';
+import { TProps } from "../../../types/types";
+import Block from "../../core/block/Block";
+import "./chat.css";
 // @ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 
 export class ChatList extends Block {
-
-    render() {
-        const temp =`
+  render() {
+    const temp = `
         <div class="contactList">
         
             <div class="chatListHeader">
@@ -17,8 +16,10 @@ export class ChatList extends Block {
                 <input class="chatSearch" type="search" placeholder="Поиск..."/>
             </div>
             <div class="contact-list">
-               ${this.props.items.map((item:TProps)=>(
-               ` 
+               ${this.props.items
+                 .map(
+                   (item: TProps) =>
+                     ` 
                <div class="chatListItem">
                     <div class="chat-avatar">
                         <img alt="avatar" src=${Avatar}/>
@@ -29,13 +30,19 @@ export class ChatList extends Block {
                     </div>
                     <div class="chat-2">
                         <div class="chat-time">${item.timeLastMessage}</div>
-                        ${item.unread !==0 ?`<div class="chat-unread">${item.unread}</div>`:'<div class="chat-unread__0"></div>'}
+                        ${
+                          item.unread !== 0
+                            ? `<div class="chat-unread">${item.unread}</div>`
+                            : '<div class="chat-unread__0"></div>'
+                        }
                     </div>
            </div>
             `
-                )).join(' ')
-               }
+                 )
+                 .join(" ")}
             </div>
         </div>
       `;
-      return this.compile(temp, this.props);}}
+    return this.compile(temp, this.props);
+  }
+}

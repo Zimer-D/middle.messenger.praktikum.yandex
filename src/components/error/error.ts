@@ -1,10 +1,9 @@
-import Block from '../../core/block/Block';
-
+import Block from "../../core/block/Block";
 
 type ErrorProps = {
-    title: string,
-    errorText: string,
-    linkText: string,
+  title: string;
+  errorText: string;
+  linkText: string;
 };
 
 //   type ComponentProps = ButtonProps & {
@@ -14,15 +13,14 @@ type ErrorProps = {
 //   };
 
 export class Error extends Block {
+  constructor(props: ErrorProps) {
+    super({
+      ...props,
+    });
+  }
 
-    constructor(props: ErrorProps) {
-        super({
-            ...props,
-        });
-    }
-
-    render() {
-        return `
+  render() {
+    return `
         <h1>
             {{title}}
         </h1>
@@ -33,7 +31,6 @@ export class Error extends Block {
             {{linkText}}
         </a>
       `;
-    }
-
+  }
 }
-export default Error
+export default Error;

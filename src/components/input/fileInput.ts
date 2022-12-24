@@ -1,9 +1,9 @@
-import Block from '../../core/block/Block';
-import './input.css'
+import Block from "../../core/block/Block";
+import "./input.css";
 
 type FileInputProps = {
-    type: string,
-    value: string,
+  type: string;
+  value: string;
 };
 
 //   type ComponentProps = ButtonProps & {
@@ -13,22 +13,20 @@ type FileInputProps = {
 //   };
 
 export class FileInput extends Block {
+  constructor(props: FileInputProps) {
+    super({
+      ...props,
+    });
+  }
 
-    constructor(props: FileInputProps) {
-        super({
-            ...props,
-        });
-    }
-
-    render() {
-        return `
+  render() {
+    return `
         <input class="fileInput" 
             type={{type}} 
             value={{value}} 
         >
       `;
-    }
-
+  }
 }
 
-export default FileInput
+export default FileInput;

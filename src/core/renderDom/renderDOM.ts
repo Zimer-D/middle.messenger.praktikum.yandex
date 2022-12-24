@@ -1,9 +1,8 @@
 import Block from "../block/Block";
 
-
 export default function renderDOM(block: Block) {
-  const app = document.querySelector('#app');
+  const app = document.querySelector("#app");
 
-    app!.innerHTML = '';
-    app!.appendChild(block.getContent()!);
+  app!.innerHTML = "";
+  app!.appendChild(block.getContent()!);
 }

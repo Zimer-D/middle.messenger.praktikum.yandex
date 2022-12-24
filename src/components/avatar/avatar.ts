@@ -1,8 +1,8 @@
-import Block from '../../core/block/Block';
-import './avatar.css'
+import Block from "../../core/block/Block";
+import "./avatar.css";
 
 type AvatarProps = {
-    url: string,
+  url: string;
 };
 
 //   type ComponentProps = ButtonProps & {
@@ -12,21 +12,19 @@ type AvatarProps = {
 //   };
 
 export class Avatar extends Block {
+  constructor(props: AvatarProps) {
+    super({
+      ...props,
+    });
+  }
 
-    constructor(props: AvatarProps) {
-        super({
-            ...props,
-        });
-    }
-
-    render() {
-        return `
+  render() {
+    return `
         <div class="avatar">
             <img alt="avatar" class="avatarImage" src="../assets/avatar.png"/>
             <a href="{{url}}" class="img__description">Поменять аватар</a>
         </div>
       `;
-    }
-
+  }
 }
-export default Avatar
+export default Avatar;
