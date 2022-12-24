@@ -16,6 +16,7 @@ import ArrowRight from "../../../static/assets/arrowright.png";
 // @ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 
+
 document.addEventListener("DOMContentLoaded", () => {
   const div = document.getElementById("bottomModal");
   div?.addEventListener("click", handelClick);
