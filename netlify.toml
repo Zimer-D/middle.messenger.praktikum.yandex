@@ -5,13 +5,5 @@
 # “command” is your build command.
 # “publish” is the directory to publish (relative to the root of your repo).
 
-[build]:
-     command: npm run build
-     commandOrigin: config
-     publish: /opt/build/repo/dist
-   publishOrigin: config
- [[ redirects]]:    
-    from: /*
-      status: 200
-      to: /index.html
-  redirectsOrigin: config
+[build]
+  publish = "dist"
