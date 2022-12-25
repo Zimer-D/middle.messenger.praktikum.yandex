@@ -7,57 +7,6 @@ import "./profile.css";
 import Avatar from "../../../static/assets/avatar.png";
 
 export default class Profile extends Block {
-  constructor(props: TProps) {
-    // CHILDREN
-
-    const errors: any = [];
-    const defaultValues = {
-      emailValue: "dmitry.zimer",
-      loginValue: "",
-      firstNameValue: "",
-      secondNameValu: "",
-      nickNameValue: "",
-      phoneValue: "",
-    };
-
-    const customEvents = [
-      {
-        events: {
-          submit: (e: any) => {
-            e.preventDefault();
-            const target = { ...e.target };
-            // Костыльный метод, блокирующий вызовы blur, при отправке формы
-            this.removeChildrenListeners();
-            //   this.handleSubmit(target);
-          },
-        },
-      },
-    ];
-
-    // Объединяем текущие пропсы компонента и его детей
-    const propsAndChildren = { ...props, errors, ...defaultValues };
-
-    super(propsAndChildren, customEvents);
-  }
-
-  // handleSubmit(target: any) {
-  //   const isValidated = validate(this, true);
-
-  //   if (isValidated === true) {
-  //     const formData = {};
-  //     // @ts-ignore
-  //     Object.entries(target).forEach(([key, child]) => {
-  //       // @ts-ignore
-  //       if (child.nodeName === 'ProfileData') {
-  //         // @ts-ignore
-  //         formData[child.name] = child.value;
-  //       }
-  //     });
-
-  //     console.log(formData);
-  //   }
-  // }
-
   render() {
     const email = new ProfileData({
       key: "Адрес электронной почты",
