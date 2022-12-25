@@ -1,7 +1,7 @@
 import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
-import { ProfileEdit } from "../../components/profile/ProfileEdit";
+import { ProfileEdit } from "../../components/profile/profileEdit";
 import Block from "../../core/block/Block";
 import "./profile.css";
 // @ts-expect-error
