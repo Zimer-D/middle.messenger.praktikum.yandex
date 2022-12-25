@@ -3,6 +3,7 @@ import Block from "../core/block/Block";
 export default class MainPage extends Block {
   render() {
     const temp = `
+    <main>
     <ul>
         <li>
             <a href="./login">Login page</a>
@@ -33,6 +34,7 @@ export default class MainPage extends Block {
         <a href="./chat">Chat</a>
     </li>
 </ul>
+</main>
        `;
     return this.compile(temp, {});
   }

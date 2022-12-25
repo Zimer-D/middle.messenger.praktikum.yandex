@@ -244,6 +244,7 @@ export default class Register extends Block {
     this.showErrors();
 
     let temp = `
+    <main> 
         <div class='container'>
             <div class="login">
                 <% this.header %>
@@ -260,7 +261,8 @@ export default class Register extends Block {
                 </form>
                 <a href="/register">Уже зарегистрированы? Войти!</a>
             </div> 
-         </div> 
+         </div>
+    </main>  
         `;
     return this.compile(temp, ctx);
   }

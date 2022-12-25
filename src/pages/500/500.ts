@@ -3,6 +3,7 @@ import Block from "../../core/block/Block";
 export default class Error500 extends Block {
   render() {
     const temp = `
+    <main>
     <div class='container'>
         <div class="errors">
           <h1>
@@ -16,6 +17,7 @@ export default class Error500 extends Block {
           </a>
         </div>
       </div>
+      </main> 
        `;
     return this.compile(temp, {});
   }

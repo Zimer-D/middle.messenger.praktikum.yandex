@@ -12,10 +12,12 @@ export default class Chat extends Block {
     this.children.chatArea = chatArea;
     const ctx = this.children;
     const temp = `
+    <main> 
         <div class="chatt">
             <% this.chatList %>
             <% this.chatArea %>
-         </div>  
+         </div>
+    </main>       
         `;
     return this.compile(temp, ctx);
   }

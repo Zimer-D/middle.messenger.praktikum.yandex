@@ -138,6 +138,7 @@ export default class Login extends Block {
     const ctx = this.children;
     this.showErrors();
     const temp = `
+    <main> 
       <div class='container'>
         <div class="login">
             <% this.header %>
@@ -150,7 +151,8 @@ export default class Login extends Block {
             </form>
             <a href="/register">Зарегистрироваться</a>   
          </div>
-      </div>  
+      </div>
+    </main>  
         `;
     return this.compile(temp, ctx);
   }

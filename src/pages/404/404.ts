@@ -3,6 +3,7 @@ import Block from "../../core/block/Block";
 export default class Error404 extends Block {
   render() {
     const temp = `
+    <main> 
     <div class='container'>
       <div class="errors">
           <h1>
@@ -15,7 +16,8 @@ export default class Error404 extends Block {
               Назад к чатам
           </a>
           </div>
-        </div>
+      </div>
+    </main> 
        `;
     return this.compile(temp, {});
   }

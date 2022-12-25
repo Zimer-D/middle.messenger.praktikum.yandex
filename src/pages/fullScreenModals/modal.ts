@@ -26,6 +26,7 @@ export class Modal extends Block {
     this.children.header = header;
     const ctx = this.children;
     const temp = `
+    <main> 
         <div class="modal-wrapper">
             <div class="modal">
                 <% this.header %>
@@ -35,6 +36,7 @@ export class Modal extends Block {
                 </form>
             </div>
         </div>
+    </main> 
            `;
     return this.compile(temp, ctx);
   }

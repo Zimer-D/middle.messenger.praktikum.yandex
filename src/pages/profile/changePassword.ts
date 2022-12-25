@@ -166,7 +166,8 @@ export default class ChangePassword extends Block {
     const ctx = this.children;
     this.showErrors();
 
-    const temp = ` 
+    const temp = `
+    <main>  
         <div class='container'>   
             <div class="profile">
                 <div class="avatar">
@@ -181,7 +182,8 @@ export default class ChangePassword extends Block {
                 <% this.button %>
                 </form>
             </div>
-         </div>  
+         </div>
+    </main>            
         `;
     return this.compile(temp, ctx);
   }

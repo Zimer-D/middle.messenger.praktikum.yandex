@@ -44,6 +44,7 @@ export default class EditProfile extends Block {
     super(propsAndChildren, customEvents);
   }
   handleSubmit(target: any) {
+    this.errors=[]
     const x = Object.keys(target).map((key) => {
       return target[key];
     });
@@ -148,7 +149,7 @@ export default class EditProfile extends Block {
         focus: () => {
           setTimeout(() => {
             const errorMessage = validateName(this.props.firstNameValue);
-            this.props.errors.push(errorMessage);
+            this.errors.push(errorMessage);
             this.showErrors();
           }, 10000);
         },
@@ -183,13 +184,13 @@ export default class EditProfile extends Block {
     });
     const phone = new ProfileEdit({
       key: "Телефон",
-      value: this.props.phoneValue,
+      value: this.props.nickNameValue,
       type: "text",
       errors: this.errors,
       name: "phone",
       events: {
         blur: (e: any) => {
-          this.setProps({ phoneValue: e.target.value });
+          this.setProps({ nickNameValue: e.target.value });
           const errorMessage = validatePhone(this.props.phoneValue);
           this.errors.push(errorMessage);
           this.showErrors();
@@ -197,7 +198,7 @@ export default class EditProfile extends Block {
         focus: () => {
           setTimeout(() => {
             const errorMessage = validatePhone(this.props.phoneValue);
-            this.props.errors.push(errorMessage);
+            this.errors.push(errorMessage);
             this.showErrors();
           }, 10000);
         },
@@ -221,7 +222,8 @@ export default class EditProfile extends Block {
     this.children.header = header;
     const ctx = this.children;
     this.showErrors();
-    const temp = ` 
+    const temp = `
+    <main> 
         <div class='container'>   
             <div class="profile">
                 <div class="avatar">
@@ -240,7 +242,8 @@ export default class EditProfile extends Block {
                     <% this.button %>
                     </form>
             </div> 
-         </div> 
+         </div>
+    </main> 
         `;
     return this.compile(temp, ctx);
   }

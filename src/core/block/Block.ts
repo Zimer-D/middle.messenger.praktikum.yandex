@@ -1,10 +1,12 @@
-import { Nullable, TProps } from "../../../types/types";
+import { Nullable, TProps, Values } from "../../../types/types";
 import UUID from "../../utils/GenerateId";
 import EventBus from "../eventbus/EventBus";
 import Templator from "../templator/Templator";
 
-// Нельзя создавать экземпляр данного класса
-class Block {
+
+type Events = Values<typeof Block.EVENTS>;
+
+abstract class Block<P = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -33,7 +35,7 @@ class Block {
       this.customEvents = customEvents;
     }
 
-    const eventBus = new EventBus();
+    const eventBus = new EventBus<Events>();
 
     this.props = this._makePropsProxy(props);
 
@@ -103,7 +105,6 @@ class Block {
     });
   }
 
-  // Костыльный метод, блокирующий вызовы blur, при отправке формы
   protected removeChildrenListeners() {
     Object.entries(this.children).forEach((elem) => {
       if (elem[1].props.events) {
@@ -117,25 +118,25 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private _componentDidMount() {
-    this.componentDidMount();
+  private _componentDidMount(props: P) {
+    this.componentDidMount(props);
   }
 
-  protected componentDidMount() {}
+  protected componentDidMount(props: P) {}
 
   protected dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate() {
-    const response = this.componentDidUpdate();
+  private _componentDidUpdate(oldProps: P, newProps: P) {
+    const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
     }
     this._render();
   }
 
-  protected componentDidUpdate() {
+  protected componentDidUpdate(oldProps: P, newProps: P) {
     return true;
   }
 
@@ -175,6 +176,7 @@ class Block {
 
   private _render() {
     const block = this.render();
+    this._removeEvents();
     // @ts-ignore
     const newElement = block.firstElementChild;
 
@@ -185,7 +187,6 @@ class Block {
     this._addEvents();
   }
 
-  // Переопределяется пользователем. Необходимо вернуть разметку
   protected render() {}
 
   getContent() {
@@ -193,8 +194,6 @@ class Block {
   }
 
   private _makePropsProxy(props: TProps) {
-    // Можно и так передать this
-    // Такой способ больше не применяется с приходом ES6+
     const self = this;
 
     return new Proxy(props, {
@@ -215,10 +214,22 @@ class Block {
   }
 
   private _createDocumentElement(tagName: string) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     const element = document.createElement(tagName);
     return element;
   }
+
+ private _removeEvents() {
+    // eslint-disable-next-line prefer-destructuring
+    const events: Record<string, () => void> = (this.props as any).events;
+
+    if (!events || !this._element) {
+        return;
+    }
+
+    Object.entries(events).forEach(([event, listener]) => {
+        this._element!.removeEventListener(event, listener);
+    });
+}
 }
 
 export default Block;

@@ -96,7 +96,8 @@ export default class Profile extends Block {
     this.children.phone = phone;
     this.children.header = header;
     const ctx = this.children;
-    const temp = `  
+    const temp = `
+    <main>  
         <div class='container'>  
             <div class="profile">
                 <div class="avatar">
@@ -115,6 +116,7 @@ export default class Profile extends Block {
                     <a href="/login" style=color:red>Выйти</a>
             </div>  
          </div>
+    </main> 
         `;
     return this.compile(temp, ctx);
   }
