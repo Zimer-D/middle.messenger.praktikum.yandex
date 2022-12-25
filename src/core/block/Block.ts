@@ -1,6 +1,6 @@
 import { Nullable, TProps, Values } from "../../../types/types";
 import UUID from "../../utils/GenerateId";
-import EventBus from "../eventbus/EventBus";
+import EventBus from "../eventBus/EventBus";
 import Templator from "../templator/Templator";
 
 
