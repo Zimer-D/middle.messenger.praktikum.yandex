@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "parcel static/index.html --no-source-maps --no-cache --open",
-    "start": "parcel build static/index.html && node ./server.js --open",
+    "start": "parcel build static/index.html && node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint",
     "tsc": "tsc"
@@ -26,6 +26,7 @@
     "handlebars": "4.7.7",
     "parcel": "2.8.0",
     "postcss-import": "15.0.1",
+    "postcss-modules": "^4.3.1",
     "postcss-nested": "6.0.0",
     "stylelint": "14.16.0",
     "stylelint-scss": "4.3.0",
