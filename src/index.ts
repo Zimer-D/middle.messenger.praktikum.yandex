@@ -1,10 +1,61 @@
-import { routes } from "./utils/Router";
+// import { routes } from "./utils/Router";
 
 
-const app = <HTMLElement>document.getElementById('app');
-const content = routes[document.location.pathname]
-  ? routes[document.location.pathname]
-  : routes['/404'];
+// const app = <HTMLElement>document.getElementById('app');
+// const content = routes[document.location.pathname]
+//   ? routes[document.location.pathname]
+//   : routes['/404'];
 
-app.append(content().render());
-window.onload = () => (app.ariaBusy = 'false');
+// app.append(content().render());
+// window.onload = () => (app.ariaBusy = 'false');
+// DATA
+import render from "./core/renderDom/renderDOM";
+import Error404 from "./pages/404/404";
+import Error500 from "./pages/500/500";
+import Chat from "./pages/chat/chat";
+import Login from "./pages/login/login";
+import ChangePassword from "./pages/profile/changePassword";
+import Profile from "./pages/profile/profile";
+import EditProfile from "./pages/profile/profileEdit";
+import Register from "./pages/register/register";
+import { data } from "./mockData";
+import "./styles/style.css";
+import MainPage from "./pages/mainPage";
+
+
+const path: string = document.location.pathname;
+let app: any = {};
+
+switch (path) {
+  case "/login":
+    app = new Login(data);
+    break;
+  case "/register":
+    app = new Register(data);
+    break;
+  case "/profile":
+    app = new Profile(data);
+    break;
+  case "/edit-profile":
+    app = new EditProfile(data);
+    break;
+  case "/change-password":
+    app = new ChangePassword(data);
+    break;
+  case "/chat":
+    app = new Chat(data);
+    break;
+  case "/":
+    app = new MainPage(data);
+    break;
+  case "/500":
+    app = new Error500(data);
+    break;
+  case "/404":
+    app = new Error404(data);
+    break;
+  default:
+    app = new Error404(data);
+}
+
+render(app);

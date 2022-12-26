@@ -24,7 +24,7 @@ class Block<P = any> {
 
   protected eventBus: () => EventBus;
 
-  public props: any = {};
+  public props: TProps;
 
   constructor(propsAndChildren: {} = {}, customEvents: any[] = []) {
     // Получаем пропсы и отделяем из них children'ов

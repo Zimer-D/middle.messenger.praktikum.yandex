@@ -1,6 +1,6 @@
 import Block from "../../core/block/Block";
 import "./chat.css";
-import { TProps } from "../../../types/types";
+import { ChatAreaProps, TProps } from "../../../types/types";
 import { FileToSend } from "../modal/fileToSend";
 import { UserActions } from "../modal/userActions";
 // @ts-expect-error
@@ -40,6 +40,11 @@ function handelClick2() {
 }
 
 export class ChatArea extends Block {
+  constructor({
+    messages
+} : ChatAreaProps) {
+    super({ messages});
+}
   render() {
     const fileToSend = new FileToSend();
     const userActions = new UserActions();
