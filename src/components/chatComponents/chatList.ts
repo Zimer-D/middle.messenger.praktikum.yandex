@@ -1,10 +1,15 @@
-import { TProps } from "../../../types/types";
+import { ChatListProps, TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./chat.css";
 //@ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 
 export class ChatList extends Block {
+  constructor({
+    items
+} : ChatListProps) {
+    super({ items});
+}
   render() {
     const temp = `
         <div class="contactList">

@@ -1,7 +1,16 @@
+import { ProfileEditProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
 export class ProfileEdit extends Block {
+  constructor({
+    key,
+    type,
+    value,
+    name
+} : ProfileEditProps) {
+    super({ key, type, value, name});
+}
   render() {
     const temp = `   
     <div class="profileData">

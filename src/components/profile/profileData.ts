@@ -1,7 +1,14 @@
+import { ProfileDataProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
 export class ProfileData extends Block {
+  constructor({
+    key,
+    value
+} : ProfileDataProps) {
+    super({ key, value});
+}
   render() {
     const temp = `   
      <div class="profileData">

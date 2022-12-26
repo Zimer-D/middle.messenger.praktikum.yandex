@@ -182,6 +182,7 @@ export default class EditProfile extends Block {
       key: "Имя в чате",
       value: this.props.nickNameValue,
       type: "text",
+      name: 'nick-name'
     });
     const phone = new ProfileEdit({
       key: "Телефон",

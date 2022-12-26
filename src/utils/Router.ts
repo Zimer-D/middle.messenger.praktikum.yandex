@@ -7,7 +7,7 @@ import Register from "../pages/register/register";
 import Chat from "../pages/chat/chat";
 import ChangePassword from "../pages/profile/changePassword";
 import { data } from "../mockData";
-import { ProfileEdit } from "../components/profile/profileEdit";
+import EditProfile from "../pages/profile/profileEdit";
 type Routes = {
     [key: string]: Function;
   };
@@ -21,7 +21,7 @@ type Routes = {
     '/chat': () => new Chat(data),
     '/profile': () => new Profile(data),
     '/change-password':() => new ChangePassword(data),
-    '/profile-edit':() => new ProfileEdit(data)
+    '/profile-edit':() => new EditProfile(data)
   };
   
   export { routes };
