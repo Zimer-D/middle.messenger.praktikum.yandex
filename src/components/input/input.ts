@@ -2,7 +2,7 @@ import { InputProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./input.css";
 
-export class Input extends Block {
+export class Input extends Block<InputProps> {
   constructor({
     label, 
     type, 

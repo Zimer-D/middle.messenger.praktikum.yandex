@@ -2,7 +2,7 @@ import { ProfileEditProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
-export class ProfileEdit extends Block {
+export class ProfileEdit extends Block<ProfileEditProps> {
   constructor({
     key,
     type,

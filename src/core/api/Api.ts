@@ -1,4 +1,4 @@
-import { TObj } from "../../../types/types";
+import { RecordItem } from "../../../types/types";
 
 const METHODS = {
   GET: "GET",
@@ -9,7 +9,7 @@ const METHODS = {
 
 // Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
 // Необязательный метод
-function queryStringify(data: TObj) {
+function queryStringify(data: RecordItem) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
   }
@@ -24,16 +24,16 @@ function queryStringify(data: TObj) {
 }
 
 class API {
-  get = (url: string, options: TObj = {}) =>
+  get = (url: string, options: RecordItem = {}) =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  post = (url: string, options: TObj = {}) =>
+  post = (url: string, options: RecordItem = {}) =>
     this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
-  put = (url: string, options: TObj = {}) =>
+  put = (url: string, options: RecordItem = {}) =>
     this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  delete = (url: string, options: TObj = {}) =>
+  delete = (url: string, options: RecordItem = {}) =>
     this.request(
       url,
       {
@@ -43,7 +43,7 @@ class API {
       options.timeout
     );
 
-  request = (url: string, options: TObj = {}, timeout = 5000) => {
+  request = (url: string, options: RecordItem = {}, timeout = 5000) => {
     const { headers = {}, method, data } = options;
 
     return new Promise((resolve, reject) => {

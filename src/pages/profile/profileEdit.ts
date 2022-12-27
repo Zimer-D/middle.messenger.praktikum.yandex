@@ -1,4 +1,4 @@
-import { TProps } from "../../../types/types";
+import { PageType, TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { ProfileEdit } from "../../components/profile/profileEdit";
@@ -14,7 +14,7 @@ import {
 } from "../../utils/Validation";
 
 
-export default class EditProfile extends Block {
+export default class EditProfile extends Block<PageType> {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {

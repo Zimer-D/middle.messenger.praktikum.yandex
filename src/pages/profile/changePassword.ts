@@ -1,4 +1,4 @@
-import { TProps } from "../../../types/types";
+import { PageType, TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { ProfileEdit } from "../../components/profile/profileEdit";
@@ -8,7 +8,7 @@ import "./profile.css";
 import Avatar from "../../../static/assets/avatar.png";
 import { validatePassword } from "../../utils/Validation";
 
-export default class ChangePassword extends Block {
+export default class ChangePassword extends Block<PageType> {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {

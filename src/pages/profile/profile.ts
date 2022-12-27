@@ -1,12 +1,12 @@
-import { TProps } from "../../../types/types";
 import { Header } from "../../components/header/header";
 import { ProfileData } from "../../components/profile/profileData";
 import Block from "../../core/block/Block";
 import "./profile.css";
 // @ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
+import { PageType } from "../../../types/types";
 
-export default class Profile extends Block {
+export default class Profile extends Block<PageType> {
   render() {
     const email = new ProfileData({
       key: "Адрес электронной почты",

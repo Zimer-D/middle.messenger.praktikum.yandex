@@ -27,7 +27,6 @@ class Block<P = any> {
   public props: TProps;
 
   constructor(propsAndChildren: {} = {}, customEvents: any[] = []) {
-    // Получаем пропсы и отделяем из них children'ов
     const { children, props } = this._getChildren(propsAndChildren);
     this.children = children;
 

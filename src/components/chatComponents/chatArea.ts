@@ -39,7 +39,7 @@ function handelClick2() {
     : (q!.style.display = "none");
 }
 
-export class ChatArea extends Block {
+export class ChatArea extends Block<ChatAreaProps> {
   constructor({
     messages
 } : ChatAreaProps) {

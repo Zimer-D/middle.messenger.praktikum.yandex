@@ -1,14 +1,3 @@
-// import { routes } from "./utils/Router";
-
-
-// const app = <HTMLElement>document.getElementById('app');
-// const content = routes[document.location.pathname]
-//   ? routes[document.location.pathname]
-//   : routes['/404'];
-
-// app.append(content().render());
-// window.onload = () => (app.ariaBusy = 'false');
-// DATA
 import render from "./core/renderDom/renderDOM";
 import Error404 from "./pages/404/404";
 import Error500 from "./pages/500/500";
