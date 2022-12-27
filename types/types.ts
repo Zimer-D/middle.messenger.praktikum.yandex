@@ -2,7 +2,7 @@ export type TProps = Record<string, any>;
 
 export type Nullable<T> = T | null;
 
-export type TObj = Record<string, any>;
+export type RecordItem = Record<string, any>;
 
 export type Keys<T extends Record<string, unknown>> = keyof T;
 
@@ -37,7 +37,7 @@ export type ChatListProps = {
     items: Array<any>
 };
 
-export type ChatAreaProps = {
+export type ChatAreaProps = {1
     messages: Array<any>
 };
 
@@ -54,3 +54,16 @@ export type ProfileEditProps = {
     errors?: string| Array<string>;
     events?: any;
 }
+
+export type FileInputProps = {
+  type: string;
+  value: string;
+};
+
+export type PageType = {
+    errors?: Array<string>,
+    customEvents?: Array<RecordItem>,
+    children: RecordItem,
+    ctx: RecordItem,
+    props?: TProps
+  }

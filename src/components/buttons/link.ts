@@ -2,7 +2,7 @@ import { LinkProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./buttons.css";
 
-export class Link extends Block {
+export class Link extends Block<LinkProps> {
   constructor({
     text,
     url

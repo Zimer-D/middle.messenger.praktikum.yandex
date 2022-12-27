@@ -2,7 +2,7 @@ import { ButtonProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./buttons.css";
 
-export class Button extends Block {
+export class Button extends Block<ButtonProps> {
   constructor({
     text, 
     type, 

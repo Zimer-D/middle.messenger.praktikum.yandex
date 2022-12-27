@@ -2,7 +2,7 @@ import { HeaderProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./header.css";
 
-export class Header extends Block {
+export class Header extends Block<HeaderProps> {
   constructor({
     text, 
     className, 

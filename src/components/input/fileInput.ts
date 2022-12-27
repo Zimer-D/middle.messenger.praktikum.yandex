@@ -1,31 +1,23 @@
+import { FileInputProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./input.css";
 
-type FileInputProps = {
-  type: string;
-  value: string;
-};
-
-//   type ComponentProps = ButtonProps & {
-//     events: {
-//       click: () => void;
-//     };
-//   };
-
-export class FileInput extends Block {
-  constructor(props: FileInputProps) {
-    super({
-      ...props,
-    });
-  }
+export class FileInput extends Block<FileInputProps> {
+  constructor({
+    type, 
+    value,
+} : FileInputProps) {
+    super({ type, value});
+}
 
   render() {
-    return `
+    const temp =`
         <input class="fileInput" 
-            type={{type}} 
-            value={{value}} 
+            type='<% this.type %>'
+            value=<% this.value %> 
         >
       `;
+      return this.compile(temp, this.props);
   }
 }
 

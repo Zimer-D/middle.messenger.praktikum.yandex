@@ -1,14 +1,13 @@
+import { PageType, TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import Block from "../../core/block/Block";
 import "./modal.css";
 
-type ModalProps = {
-  type: string;
-};
 
-export class Modal extends Block {
-  constructor(props: ModalProps) {
+
+export class Modal extends Block<PageType> {
+  constructor(props:TProps) {
     super({
       ...props,
     });
@@ -16,10 +15,10 @@ export class Modal extends Block {
 
   render() {
     const header = new Header({
-      text: "<% this.text  %>",
+      text: this.props.text,
     });
     const button = new Button({
-      text: "<% this.buttonText %>",
+      text: this.props.buttonText,
       type: "submit",
     });
     this.children.button = button;

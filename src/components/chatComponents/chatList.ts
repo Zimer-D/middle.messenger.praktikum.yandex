@@ -4,7 +4,7 @@ import "./chat.css";
 //@ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 
-export class ChatList extends Block {
+export class ChatList extends Block<ChatListProps> {
   constructor({
     items
 } : ChatListProps) {

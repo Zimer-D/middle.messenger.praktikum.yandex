@@ -1,8 +1,11 @@
+import { PageType } from "../../../types/types";
 import { ChatArea } from "../../components/chatComponents/chatArea";
 import { ChatList } from "../../components/chatComponents/chatList";
 import Block from "../../core/block/Block";
 
-export default class Chat extends Block {
+
+export default class Chat extends Block<PageType> {
+
   render() {
     const chatList = new ChatList(this.props.chats);
 
