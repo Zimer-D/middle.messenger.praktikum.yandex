@@ -6,7 +6,7 @@ import "./modal.css";
 
 
 
-export class Modal extends Block<PageType> {
+export class Modal extends Block{
   constructor(props:TProps) {
     super({
       ...props,

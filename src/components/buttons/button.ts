@@ -2,14 +2,15 @@ import { ButtonProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./buttons.css";
 
-export class Button extends Block<ButtonProps> {
+export class Button extends Block {
   constructor({
     text, 
-    type, 
+    type,
+    id, 
     onClick = () => {},
 } : ButtonProps) {
     super({
-        text, type, events: { click: onClick },
+        text, type, id, events: { click: onClick },
     });
 }
   render() {
@@ -19,6 +20,7 @@ export class Button extends Block<ButtonProps> {
         type='<% this.type %>' 
         class="button"
         disable='false'
+        id=<% this.id %>
         >
         <% this.text %>
         </button>

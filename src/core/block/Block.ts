@@ -1,40 +1,57 @@
 import { Nullable, TProps, Values } from "../../../types/types";
 import UUID from "../../utils/GenerateId";
 import EventBus from "../eventBus/EventBus";
+import router from "../router";
 import Templator from "../templator/Templator";
 
 
 type Events = Values<typeof Block.EVENTS>;
-
-class Block<P = any> {
+class Block {
   static EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   } as const;
 
-  protected _element: Nullable<HTMLElement> = null;
+  protected _element: HTMLElement;
 
   public id = UUID();
 
   public children: { [id: string]: Block } = {};
 
-  public customEvents: any[] = [];
+
+  public customEvents: any = [{
+    selector: '.router-link',
+    events: {
+      click: (e: Event) => {
+        e.preventDefault();
+
+        if (e.currentTarget) {
+          const element = e.currentTarget as HTMLElement;
+          if (element.getAttribute('router-force')) {
+            router.go(element.getAttribute('href'), true);
+          } else {
+            router.go(element.getAttribute('href'));
+          }
+        }
+      },
+    },
+  }];
 
   protected eventBus: () => EventBus;
 
-  public props: TProps;
+  public props: any = {};
 
   constructor(propsAndChildren: {} = {}, customEvents: any[] = []) {
     const { children, props } = this._getChildren(propsAndChildren);
     this.children = children;
 
     if (customEvents.length > 0) {
-      this.customEvents = customEvents;
+      this.customEvents = [...this.customEvents, ...customEvents];
     }
 
-    const eventBus = new EventBus<Events>();
+    const eventBus = new EventBus();
 
     this.props = this._makePropsProxy(props);
 
@@ -67,38 +84,37 @@ class Block<P = any> {
   }
 
   private _createResources() {
-    this._element = this._createDocumentElement("div");
+    this._element = this._createDocumentElement('div');
   }
 
   private _addEvents() {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      if (eventName === "blur" || eventName === "focus") {
-        if (this.element!.querySelector("input")) {
-          this.element!.querySelector("input")!.addEventListener(
-            eventName,
-            events[eventName]
-          );
+      if (eventName === 'blur' || eventName === 'focus') {
+        if (this.element!.querySelector('input')) {
+                  this.element!.querySelector('input')!.addEventListener(eventName, events[eventName]);
         }
-        if (this.element!.querySelector("textarea")) {
-          this.element!.querySelector("textarea")!.addEventListener(
-            eventName,
-            events[eventName]
-          );
+        if (this.element!.querySelector('textarea')) {
+                  this.element!.querySelector('textarea')!.addEventListener(eventName, events[eventName]);
         }
       } else {
-        this.element!.addEventListener(eventName, events[eventName]);
+              this.element!.addEventListener(eventName, events[eventName]);
       }
     });
 
     this.customEvents.forEach((elem) => {
       Object.keys(elem.events).forEach((eventName) => {
-        if (this.element!.querySelector(elem.selector)) {
-          this.element!.querySelector(elem.selector)!.addEventListener(
-            eventName,
-            elem.events[eventName]
-          );
+        if (this.element) {
+          if (this.element!.querySelectorAll(elem.selector).length > 0) {
+                      this.element!.querySelectorAll(elem.selector).forEach((currentValue) => {
+                        currentValue.removeEventListener(eventName, elem.events[eventName], true);
+                        if (!currentValue.getAttribute(`event-${eventName}`)) {
+                          currentValue.addEventListener(eventName, elem.events[eventName]);
+                        }
+                        currentValue.setAttribute(`event-${eventName}`, 'true');
+                      });
+          }
         }
       });
     });
@@ -114,28 +130,30 @@ class Block<P = any> {
 
   protected init() {
     this._createResources();
+    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+  }
+
+  private _componentDidMount() {
+    this.componentDidMount();
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  private _componentDidMount(props: P) {
-    this.componentDidMount(props);
+  protected componentDidMount() {
   }
-
-  protected componentDidMount(props: P) {}
 
   protected dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
   }
 
-  private _componentDidUpdate(oldProps: P, newProps: P) {
-    const response = this.componentDidUpdate(oldProps, newProps);
+  private _componentDidUpdate() {
+    const response = this.componentDidUpdate();
     if (!response) {
       return;
     }
     this._render();
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
+  protected componentDidUpdate() {
     return true;
   }
 
@@ -143,7 +161,6 @@ class Block<P = any> {
     if (!nextProps) {
       return;
     }
-
     Object.assign(this.props, nextProps);
   };
 
@@ -154,30 +171,27 @@ class Block<P = any> {
       propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
     });
 
-    const fragment = this._createDocumentElement("template");
+    const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
 
     fragment.innerHTML = new Templator(template).compile(propsAndStubs);
 
     Object.values(this.children).forEach((child) => {
-      // @ts-ignore
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
       if (stub) {
         stub.replaceWith(child.getContent());
       }
     });
-    // @ts-ignore
     return fragment.content;
   }
 
-  get element() {
+  get element(): HTMLElement {
     return this._element;
   }
 
-  private _render() {
+  private _render(): any {
     const block = this.render();
-    this._removeEvents();
-    // @ts-ignore
-    const newElement = block.firstElementChild;
+
+    const newElement = block.firstElementChild as HTMLTemplateElement;
 
     if (this._element) {
       this._element.replaceWith(newElement);
@@ -186,9 +200,11 @@ class Block<P = any> {
     this._addEvents();
   }
 
-  protected render() {}
+  protected render(): any {
+    return document.createElement('div');
+  }
 
-  getContent() {
+  getContent(): HTMLElement {
     return this.element;
   }
 
@@ -198,7 +214,7 @@ class Block<P = any> {
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+        return typeof value === 'function' ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         // eslint-disable-next-line no-param-reassign
@@ -207,28 +223,47 @@ class Block<P = any> {
         return true;
       },
       deleteProperty() {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
   }
 
   private _createDocumentElement(tagName: string) {
+    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
     const element = document.createElement(tagName);
     return element;
   }
 
- private _removeEvents() {
-    // eslint-disable-next-line prefer-destructuring
-    const events: Record<string, () => void> = (this.props as any).events;
+  public show(force: boolean = false) {
+    if (force) {
+          this.getContent()!.classList.add('route-active');
+    } else {
+      if (this.getContent()) {
+              this.getContent()!.classList.add('route-hidden');
 
-    if (!events || !this._element) {
-        return;
+              setTimeout(() => {
+                  this.getContent()!.classList.remove('route-hidden');
+                  this.getContent()!.classList.add('route-active');
+              }, 200);
+      }
     }
+  }
 
-    Object.entries(events).forEach(([event, listener]) => {
-        this._element!.removeEventListener(event, listener);
-    });
-}
+  public hide() {
+      this.getContent()!.classList.remove('route-active');
+      this.getContent()!.classList.add('route-hidden');
+  }
+
+  public destroy() {
+    if (this._element) {
+      this._element.remove();
+      this.onDestroy();
+    }
+  }
+
+  public onDestroy() {
+
+  }
 }
 
 export default Block;

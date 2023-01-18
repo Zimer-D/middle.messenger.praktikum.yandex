@@ -11,6 +11,7 @@ export type Values<T extends Record<string, unknown>> = T[Keys<T>];
 export type ButtonProps = {
     text: string;
     type: string,
+    id?:string,
     onClick?: () => void
 };
 
@@ -67,3 +68,25 @@ export type PageType = {
     ctx: RecordItem,
     props?: TProps
   }
+
+export type TAccess = 'public' | 'protected' | '';
+
+export interface UserData {
+    first_name?: string,
+    second_name?: string,
+    display_name?: string,
+    login?: string,
+    email?: string,
+    phone?: string
+}
+
+export interface PasswordUpdate {
+    oldPassword?: string,
+    newPassword?: string,
+}
+
+export interface LoginData {
+    login?: string,
+    password?: string,
+}
+

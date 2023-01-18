@@ -7,14 +7,19 @@ import "./profile.css";
 // @ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
 import { validatePassword } from "../../utils/Validation";
+import { store } from "../../core/store";
+import { getFormData } from "../../utils/GetData";
+import ProfileApi from "../../core/controllers/Profile";
 
-export default class ChangePassword extends Block<PageType> {
+
+export default class ChangePassword extends Block {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
-      oldPassword: "",
-      newPassword: "",
-      confirmPassword: "",
+      oldPasswordValue: "",
+      newPasswordValue: "",
+      confirmPasswordValue: "",
+      // isLoading: store.getState().passwordEditPage.isLoading,
     };
 
     const customEvents = [
@@ -23,9 +28,10 @@ export default class ChangePassword extends Block<PageType> {
         events: {
           submit: (e: any) => {
             e.preventDefault();
-            const target = { ...e.target };
+            const target = e.target;
+            const formData = getFormData([...target]);
             this.removeChildrenListeners();
-            this.handleSubmit(target);
+            this.handleSubmit(formData);
           },
         },
       },
@@ -35,6 +41,7 @@ export default class ChangePassword extends Block<PageType> {
 
     super(propsAndChildren, customEvents);
   }
+
   handleSubmit(target: any) {
     const x = Object.keys(target).map((key) => {
       return target[key];
@@ -42,24 +49,27 @@ export default class ChangePassword extends Block<PageType> {
     const myTarget = x.filter((q) => q.nodeName === "INPUT");
     const valid =
       this.errors.filter((n) => n).length == 0 &&
-      !myTarget.filter((q) => q.value === "");
+      myTarget.filter((q) => q.value === "");
     const formData = {};
-
-    if (valid) {
-      Object.entries(target).forEach(([key, child]) => {
-        console.log(key, child);
-        // @ts-ignore
-        if (child.nodeName === "INPUT") {
-          // @ts-ignore
-          if (!child.value) {
-            this.errors.push("Заполните пустые поля");
-          }
-          // @ts-ignore
-          formData[child.name] = child.value;
-        }
+    if(target.newPassword !== target.confirmPassword){
+      this.errors.push("Пароли не совпадают");
+      this.render();
+      return this.errors;
+    }
+   else if (valid) {
+      store.setState({
+        passwordEditPage: {
+          isLoading: true,
+        },
       });
 
-      console.log(formData);
+      ProfileApi.updatePassword(target).then(() => {
+        store.setState({
+          passwordEditPage: {
+            isLoading: false,
+          },
+        });
+      });
     } else {
       this.errors.push("Заполните пустые поля");
       this.render();
@@ -84,10 +94,10 @@ export default class ChangePassword extends Block<PageType> {
       value: this.props.oldPasswordValue,
       errors: this.errors,
       type: "password",
-      name: "old-password",
+      name: "oldPassword",
       events: {
         blur: (e: any) => {
-          this.setProps({ confirmPasswordValue: e.target.value });
+          this.setProps({ oldPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.oldPasswordValue);
           this.errors.push(errorMessage);
           this.showErrors();
@@ -107,10 +117,10 @@ export default class ChangePassword extends Block<PageType> {
       value: this.props.newPasswordValue,
       type: "password",
       errors: this.errors,
-      name: "new-password",
+      name: "newPassword",
       events: {
         blur: (e: any) => {
-          this.setProps({ confirmPasswordValue: e.target.value });
+          this.setProps({ newPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.newPasswordValue);
           this.errors.push(errorMessage);
           this.showErrors();
@@ -129,7 +139,7 @@ export default class ChangePassword extends Block<PageType> {
       value: this.props.confirmPasswordValue,
       type: "password",
       errors: this.errors,
-      name: "confirm-password",
+      name: "confirmPassword",
       events: {
         blur: (e: any) => {
           this.setProps({ confirmPasswordValue: e.target.value });
@@ -178,13 +188,13 @@ export default class ChangePassword extends Block<PageType> {
                 <% this.oldPassword %>
                 <% this.newPassword %>
                 <% this.confirmPassword %>
-                <div class='error-message-wrapper' id="submitErrors">
+                <div class='error-message-wrapper' id="submitErrors"></div>
                 <% this.button %>
                 </form>
             </div>
          </div>
     </main>            
         `;
-    return this.compile(temp, ctx);
+    return this.compile(temp, this.props);
   }
 }

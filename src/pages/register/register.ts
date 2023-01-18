@@ -3,23 +3,29 @@ import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { Input } from "../../components/input/input";
 import Block from "../../core/block/Block";
+import Authorization from "../../core/controllers/Authorization";
+import { store } from "../../core/store";
+import { getFormData } from "../../utils/GetData";
 import {
   validateEmail,
   validateLogin,
   validateName,
   validatePassword,
+  validatePhone,
 } from "../../utils/Validation";
 
-export default class Register extends Block<PageType> {
+export default class Register extends Block {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
-      emailValue: "",
-      loginValue: "",
       firstNameValue: "",
       secondNameValue: "",
+      emailValue: "",
+      loginValue: "",
       passwordValue: "",
       confirmPasswordValue: "",
+      phoneValue: "",
+      // isLoading: store.getState().registerPage.isLoading,
     };
 
     const customEvents = [
@@ -28,9 +34,10 @@ export default class Register extends Block<PageType> {
         events: {
           submit: (e: any) => {
             e.preventDefault();
-            const target = { ...e.target };
+            const target = e.target as HTMLFormElement;
+            const formData = getFormData([...target]);
             this.removeChildrenListeners();
-            this.handleSubmit(target);
+            this.handleSubmit(formData);
           },
         },
       },
@@ -48,27 +55,22 @@ export default class Register extends Block<PageType> {
     const myTarget = x.filter((q) => q.nodeName === "INPUT");
     const valid =
       this.errors.filter((n) => n).length == 0 &&
-      !myTarget.filter((q) => q.value === "");
-    const formData = {};
-
+      myTarget.filter((q) => q.value === "");
     if (valid) {
-      Object.entries(target).forEach(([key, child]) => {
-        console.log(key, child);
-        // @ts-ignore
-        if (child.nodeName === "INPUT") {
-          // @ts-ignore
-          if (!child.value) {
-            this.errors.push("Заполните пустые поля");
-          }
-          // @ts-ignore
-          formData[child.name] = child.value;
-        }
+      store.setState({
+        registrationPage: {
+          isLoading: true,
+        },
       });
-
-      console.log(formData);
+      Authorization.signUp(target).then(() => {
+        store.setState({
+          registrationPage: {
+            isLoading: false,
+          },
+        });
+      });
     } else {
       this.errors.push("Заполните пустые поля");
-      console.log(44, this.errors);
       this.render();
       return this.errors;
     }
@@ -176,6 +178,30 @@ export default class Register extends Block<PageType> {
         },
       },
     });
+
+    const phone = new Input({
+      label: "Телефон",
+      type: "text",
+      name: "phone",
+      errors: this.errors,
+      value: this.props.phoneValue,
+      events: {
+        blur: (e: any) => {
+          this.setProps({ phoneValue: e.target.value });
+          const errorMessage = validatePhone(this.props.phoneValue);
+          this.errors.push(errorMessage);
+          this.showErrors();
+        },
+        focus: () => {
+          setTimeout(() => {
+            const errorMessage = validatePhone(this.props.phoneValue);
+            this.errors.push(errorMessage);
+            this.showErrors();
+          }, 10000);
+        },
+      },
+    });
+
     const password = new Input({
       label: "Пароль",
       type: "password",
@@ -227,6 +253,7 @@ export default class Register extends Block<PageType> {
     const button = new Button({
       type: "submit",
       text: "Зарегистрироваться",
+      // isLoading: this.props.isLoading,
     });
 
     const header = new Header({
@@ -238,6 +265,7 @@ export default class Register extends Block<PageType> {
     this.children.secondName = second_name;
     this.children.password = password;
     this.children.confirmPassword = confirmPassword;
+    this.children.phone = phone;
     this.children.button = button;
     this.children.header = header;
     const ctx = this.children;
@@ -253,13 +281,14 @@ export default class Register extends Block<PageType> {
                     <% this.login %>
                     <% this.firstName %>
                     <% this.secondName %>
+                    <% this.phone %>
                     <% this.password %>
                     <% this.confirmPassword %>
                     <div class='error-message-wrapper' id="submitErrors">
                     </div>
                     <% this.button %>
                 </form>
-                <a href="/register">Уже зарегистрированы? Войти!</a>
+                <a href="/login">Уже зарегистрированы? Войти!</a>
             </div> 
          </div>
     </main>  

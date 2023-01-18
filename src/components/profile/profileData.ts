@@ -2,7 +2,7 @@ import { ProfileDataProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
-export class ProfileData extends Block<ProfileDataProps> {
+export class ProfileData extends Block{
   constructor({
     key,
     value

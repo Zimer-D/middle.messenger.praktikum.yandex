@@ -1,67 +1,83 @@
 import { RecordItem } from "../../../types/types";
 
-const METHODS = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  DELETE: "DELETE",
-};
-
-// Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
-// Необязательный метод
-function queryStringify(data: RecordItem) {
-  if (typeof data !== "object") {
-    throw new Error("Data must be object");
-  }
-
-  // Здесь достаточно и [object Object] для объекта
-  const keys = Object.keys(data);
-  return keys.reduce(
-    (result, key, index) =>
-      `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`,
-    "?"
-  );
+enum METHODS {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
-class API {
-  get = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+const defaultHeaders = {
+'Content-type': 'application/json; charset=UTF-8',
+};
 
-  post = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+function queryStringify(data = {} as RecordItem) {
+if (typeof data !== 'object') {
+  throw new Error('Data must be object');
+}
 
-  put = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
-  delete = (url: string, options: RecordItem = {}) =>
-    this.request(
-      url,
-      {
-        ...options,
-        method: METHODS.DELETE,
-      },
-      options.timeout
-    );
+const keys = Object.keys(data);
+return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
+}
 
-  request = (url: string, options: RecordItem = {}, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
+class Client {
+  get = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.GET }, options!.timeout);
+
+  post = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.POST }, options!.timeout);
+
+  put = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.PUT }, options!.timeout);
+
+  delete = (url: string, options: any = {}) => this.request(url, {
+    ...options,
+    method: METHODS.DELETE,
+  }, options!.timeout);
+
+  request = (url: string, options: any, timeout = 10000) => {
+    let { headers = {}, method, data } = options;
+
+    if (Object.keys(headers).length == 0 && !(data instanceof FormData)) {
+      headers = defaultHeaders;
+    }
 
     return new Promise((resolve, reject) => {
       if (!method) {
-        reject(new Error("No method"));
+        reject(new Error('No method'));
         return;
       }
 
-      const xhr = new XMLHttpRequest();
+      const xhr = new window.XMLHttpRequest();
       const isGet = method === METHODS.GET;
 
-      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
+      xhr.withCredentials = true;
+
+      xhr.open(
+        method,
+        isGet && !!data
+          ? `${url}${queryStringify(data)}`
+          : url,
+      );
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = function () {
+        let resp: any = '';
+
+        if (xhr.response === 'OK') {
+          resp = { status: 'OK' };
+        } else {
+          resp = JSON.parse(xhr.response);
+        }
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(resp);
+        } else {
+          reject(resp);
+        }
+
         resolve(xhr);
       };
 
@@ -79,3 +95,5 @@ class API {
     });
   };
 }
+
+export default new Client();
