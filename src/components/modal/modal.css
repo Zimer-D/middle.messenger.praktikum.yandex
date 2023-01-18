@@ -33,14 +33,13 @@
   }
 }
 
-
 .modal-wrapper {
-  position:fixed;
+  position: fixed;
   z-index: 999;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
-  top:0;
+  top: 0;
   left: 0;
   display: flex;
   align-items: center;
@@ -57,20 +56,19 @@
 .modal {
   width: 100%;
   max-width: 320px;
-  max-height:300px;
+  max-height: 300px;
   background: #fff;
   border-radius: 16px;
 
   &__header {
-          position:relative;
-          display: flex;
-          align-items: center;
-      }
-
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
 }
 .btn-close {
-margin-left: 20px;
-cursor: pointer;
+  margin-left: 20px;
+  cursor: pointer;
 }
 
 .usersList {

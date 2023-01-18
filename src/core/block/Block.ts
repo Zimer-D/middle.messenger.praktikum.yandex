@@ -4,14 +4,13 @@ import EventBus from "../eventBus/EventBus";
 import router from "../router";
 import Templator from "../templator/Templator";
 
-
 type Events = Values<typeof Block.EVENTS>;
 class Block {
   static EVENTS = {
-    INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render',
+    INIT: "init",
+    FLOW_CDM: "flow:component-did-mount",
+    FLOW_CDU: "flow:component-did-update",
+    FLOW_RENDER: "flow:render",
   } as const;
 
   protected _element: HTMLElement;
@@ -20,24 +19,25 @@ class Block {
 
   public children: { [id: string]: Block } = {};
 
+  public customEvents: any = [
+    {
+      selector: ".router-link",
+      events: {
+        click: (e: Event) => {
+          e.preventDefault();
 
-  public customEvents: any = [{
-    selector: '.router-link',
-    events: {
-      click: (e: Event) => {
-        e.preventDefault();
-
-        if (e.currentTarget) {
-          const element = e.currentTarget as HTMLElement;
-          if (element.getAttribute('router-force')) {
-            router.go(element.getAttribute('href'), true);
-          } else {
-            router.go(element.getAttribute('href'));
+          if (e.currentTarget) {
+            const element = e.currentTarget as HTMLElement;
+            if (element.getAttribute("router-force")) {
+              router.go(element.getAttribute("href"), true);
+            } else {
+              router.go(element.getAttribute("href"));
+            }
           }
-        }
+        },
       },
     },
-  }];
+  ];
 
   protected eventBus: () => EventBus;
 
@@ -84,22 +84,28 @@ class Block {
   }
 
   private _createResources() {
-    this._element = this._createDocumentElement('div');
+    this._element = this._createDocumentElement("div");
   }
 
   private _addEvents() {
     const { events = {} } = this.props;
 
     Object.keys(events).forEach((eventName) => {
-      if (eventName === 'blur' || eventName === 'focus') {
-        if (this.element!.querySelector('input')) {
-                  this.element!.querySelector('input')!.addEventListener(eventName, events[eventName]);
+      if (eventName === "blur" || eventName === "focus") {
+        if (this.element!.querySelector("input")) {
+          this.element!.querySelector("input")!.addEventListener(
+            eventName,
+            events[eventName]
+          );
         }
-        if (this.element!.querySelector('textarea')) {
-                  this.element!.querySelector('textarea')!.addEventListener(eventName, events[eventName]);
+        if (this.element!.querySelector("textarea")) {
+          this.element!.querySelector("textarea")!.addEventListener(
+            eventName,
+            events[eventName]
+          );
         }
       } else {
-              this.element!.addEventListener(eventName, events[eventName]);
+        this.element!.addEventListener(eventName, events[eventName]);
       }
     });
 
@@ -107,13 +113,22 @@ class Block {
       Object.keys(elem.events).forEach((eventName) => {
         if (this.element) {
           if (this.element!.querySelectorAll(elem.selector).length > 0) {
-                      this.element!.querySelectorAll(elem.selector).forEach((currentValue) => {
-                        currentValue.removeEventListener(eventName, elem.events[eventName], true);
-                        if (!currentValue.getAttribute(`event-${eventName}`)) {
-                          currentValue.addEventListener(eventName, elem.events[eventName]);
-                        }
-                        currentValue.setAttribute(`event-${eventName}`, 'true');
-                      });
+            this.element!.querySelectorAll(elem.selector).forEach(
+              (currentValue) => {
+                currentValue.removeEventListener(
+                  eventName,
+                  elem.events[eventName],
+                  true
+                );
+                if (!currentValue.getAttribute(`event-${eventName}`)) {
+                  currentValue.addEventListener(
+                    eventName,
+                    elem.events[eventName]
+                  );
+                }
+                currentValue.setAttribute(`event-${eventName}`, "true");
+              }
+            );
           }
         }
       });
@@ -138,8 +153,7 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected componentDidMount() {
-  }
+  protected componentDidMount() {}
 
   protected dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -171,7 +185,9 @@ class Block {
       propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
     });
 
-    const fragment = this._createDocumentElement('template') as HTMLTemplateElement;
+    const fragment = this._createDocumentElement(
+      "template"
+    ) as HTMLTemplateElement;
 
     fragment.innerHTML = new Templator(template).compile(propsAndStubs);
 
@@ -201,7 +217,7 @@ class Block {
   }
 
   protected render(): any {
-    return document.createElement('div');
+    return document.createElement("div");
   }
 
   getContent(): HTMLElement {
@@ -214,7 +230,7 @@ class Block {
     return new Proxy(props, {
       get(target, prop: string) {
         const value = target[prop];
-        return typeof value === 'function' ? value.bind(target) : value;
+        return typeof value === "function" ? value.bind(target) : value;
       },
       set(target: Record<string, unknown>, prop: string, value: unknown) {
         // eslint-disable-next-line no-param-reassign
@@ -223,7 +239,7 @@ class Block {
         return true;
       },
       deleteProperty() {
-        throw new Error('Нет доступа');
+        throw new Error("Нет доступа");
       },
     });
   }
@@ -236,22 +252,22 @@ class Block {
 
   public show(force: boolean = false) {
     if (force) {
-          this.getContent()!.classList.add('route-active');
+      this.getContent()!.classList.add("route-active");
     } else {
       if (this.getContent()) {
-              this.getContent()!.classList.add('route-hidden');
+        this.getContent()!.classList.add("route-hidden");
 
-              setTimeout(() => {
-                  this.getContent()!.classList.remove('route-hidden');
-                  this.getContent()!.classList.add('route-active');
-              }, 200);
+        setTimeout(() => {
+          this.getContent()!.classList.remove("route-hidden");
+          this.getContent()!.classList.add("route-active");
+        }, 200);
       }
     }
   }
 
   public hide() {
-      this.getContent()!.classList.remove('route-active');
-      this.getContent()!.classList.add('route-hidden');
+    this.getContent()!.classList.remove("route-active");
+    this.getContent()!.classList.add("route-hidden");
   }
 
   public destroy() {
@@ -261,9 +277,7 @@ class Block {
     }
   }
 
-  public onDestroy() {
-
-  }
+  public onDestroy() {}
 }
 
 export default Block;

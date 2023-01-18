@@ -8,7 +8,6 @@ import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import { validateLogin, validatePassword } from "../../utils/Validation";
 
-
 export default class Login extends Block {
   errors = new Array();
   constructor(props: TProps) {
@@ -67,8 +66,7 @@ export default class Login extends Block {
             isLoading: false,
           },
         });
-      })
-    
+      });
     } else {
       this.errors.push("Заполните пустые поля");
       this.render();

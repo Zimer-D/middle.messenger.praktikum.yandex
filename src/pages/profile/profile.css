@@ -1,6 +1,6 @@
 .avatarImage {
   object-fit: cover;
-  border-radius:50%;
+  border-radius: 50%;
   width: 150px;
   height: 150px;
   &:hover {
@@ -10,16 +10,15 @@
 .img__description {
   position: relative;
   right: 100px;
-  color:var(--white);
+  color: var(--white);
   visibility: hidden;
   opacity: 0;
 }
 .avatar {
   width: 150px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
-
 }
 .avatar:hover .img__description {
   visibility: visible;

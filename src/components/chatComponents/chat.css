@@ -8,7 +8,7 @@
   }
 }
 .chatArea {
-  margin-bottom:15px;
+  margin-bottom: 15px;
   display: block;
   flex-direction: column;
   justify-content: flex-end;
@@ -38,7 +38,7 @@
 
   & > img {
     object-fit: cover;
-    border-radius:50%;
+    border-radius: 50%;
     height: 47px;
   }
   &:hover {
@@ -50,17 +50,17 @@
   position: relative;
   top: -40px;
   right: -12px;
-  color:red;
+  color: red;
   visibility: hidden;
   opacity: 0;
 }
 
 .chat-avatar {
-  cursor:pointer;
+  cursor: pointer;
   margin: 10px;
   & > img {
     object-fit: cover;
-    border-radius:50%;
+    border-radius: 50%;
     width: 47px;
     height: 47px;
     &:hover {
@@ -178,7 +178,7 @@
 .message-text {
   margin-right: 5px;
 }
-.icon{
+.icon {
   border-radius: 50%;
   border: none;
 }
@@ -197,17 +197,17 @@
   justify-content: space-around;
 }
 
-.chatMainTitle{
-  cursor:pointer;
-  border-radius:10px;
-  padding:10px;
+.chatMainTitle {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 10px;
   &:hover {
     box-shadow: 0px 5px 10px 2px var(--dark-gray);
   }
 }
 
-.chooseChat{
+.chooseChat {
   position: relative;
   top: -38%;
-  color: var(--dark-gray)
+  color: var(--dark-gray);
 }

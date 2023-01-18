@@ -1,38 +1,49 @@
 import { RecordItem } from "../../../types/types";
 
 enum METHODS {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  PATCH = 'PATCH',
-  DELETE = 'DELETE',
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
 }
 
 const defaultHeaders = {
-'Content-type': 'application/json; charset=UTF-8',
+  "Content-type": "application/json; charset=UTF-8",
 };
 
 function queryStringify(data = {} as RecordItem) {
-if (typeof data !== 'object') {
-  throw new Error('Data must be object');
-}
+  if (typeof data !== "object") {
+    throw new Error("Data must be object");
+  }
 
-
-const keys = Object.keys(data);
-return keys.reduce((result, key, index) => `${result}${key}=${data[key]}${index < keys.length - 1 ? '&' : ''}`, '?');
+  const keys = Object.keys(data);
+  return keys.reduce(
+    (result, key, index) =>
+      `${result}${key}=${data[key]}${index < keys.length - 1 ? "&" : ""}`,
+    "?"
+  );
 }
 
 class Client {
-  get = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.GET }, options!.timeout);
+  get = (url: string, options: any = {}) =>
+    this.request(url, { ...options, method: METHODS.GET }, options!.timeout);
 
-  post = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.POST }, options!.timeout);
+  post = (url: string, options: any = {}) =>
+    this.request(url, { ...options, method: METHODS.POST }, options!.timeout);
 
-  put = (url: string, options: any = {}) => this.request(url, { ...options, method: METHODS.PUT }, options!.timeout);
+  put = (url: string, options: any = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options!.timeout);
 
-  delete = (url: string, options: any = {}) => this.request(url, {
-    ...options,
-    method: METHODS.DELETE,
-  }, options!.timeout);
+  delete = (url: string, options: any = {}) =>
+    this.request(
+      url,
+      {
+        ...options,
+        method: METHODS.DELETE,
+      },
+      options!.timeout
+    );
 
   request = (url: string, options: any, timeout = 10000) => {
     let { headers = {}, method, data } = options;
@@ -43,7 +54,7 @@ class Client {
 
     return new Promise((resolve, reject) => {
       if (!method) {
-        reject(new Error('No method'));
+        reject(new Error("No method"));
         return;
       }
 
@@ -52,22 +63,17 @@ class Client {
 
       xhr.withCredentials = true;
 
-      xhr.open(
-        method,
-        isGet && !!data
-          ? `${url}${queryStringify(data)}`
-          : url,
-      );
+      xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
       Object.keys(headers).forEach((key) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
       xhr.onload = function () {
-        let resp: any = '';
+        let resp: any = "";
 
-        if (xhr.response === 'OK') {
-          resp = { status: 'OK' };
+        if (xhr.response === "OK") {
+          resp = { status: "OK" };
         } else {
           resp = JSON.parse(xhr.response);
         }

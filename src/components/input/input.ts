@@ -3,7 +3,6 @@ import Block from "../../core/block/Block";
 import "./input.css";
 
 export class Input extends Block {
-
   render() {
     const temp = `<div class="input-group">
                         <input 

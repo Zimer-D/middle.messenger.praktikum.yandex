@@ -11,7 +11,6 @@ import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import ProfileApi from "../../core/controllers/Profile";
 
-
 export default class ChangePassword extends Block {
   errors = new Array();
   constructor(props: TProps) {
@@ -51,12 +50,11 @@ export default class ChangePassword extends Block {
       this.errors.filter((n) => n).length == 0 &&
       myTarget.filter((q) => q.value === "");
     const formData = {};
-    if(target.newPassword !== target.confirmPassword){
+    if (target.newPassword !== target.confirmPassword) {
       this.errors.push("Пароли не совпадают");
       this.render();
       return this.errors;
-    }
-   else if (valid) {
+    } else if (valid) {
       store.setState({
         passwordEditPage: {
           isLoading: true,

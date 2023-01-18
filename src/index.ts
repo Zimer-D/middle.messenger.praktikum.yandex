@@ -11,20 +11,18 @@ import "./styles/style.css";
 import router from "./core/router";
 import Authorization from "./core/controllers/Authorization";
 
-
-
 router
-  .setPublicRedirect('/chats')
-  .setProtectedRedirect('/login')
+  .setPublicRedirect("/chats")
+  .setProtectedRedirect("/login")
   .onRoute(Authorization.checkAuth)
-  .use('/', Login, 'public')
-  .use('/login', Login, 'public')
-  .use('/register', Register, 'public')
-  .use('/chats', Chat, 'protected')
-  .use('/chats/:id', Chat, 'protected')
-  .use('/profile', Profile, 'protected')
-  .use('/edit-profile', EditProfile, 'protected')
-  .use('/change-password', ChangePassword, 'protected')
-  .use('/500', Error500)
-  .use('*', Error404)
+  .use("/", Login, "public")
+  .use("/login", Login, "public")
+  .use("/register", Register, "public")
+  .use("/chats", Chat, "protected")
+  .use("/chats/:id", Chat, "protected")
+  .use("/profile", Profile, "protected")
+  .use("/edit-profile", EditProfile, "protected")
+  .use("/change-password", ChangePassword, "protected")
+  .use("/500", Error500)
+  .use("*", Error404)
   .start();

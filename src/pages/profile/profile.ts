@@ -11,12 +11,11 @@ import ProfileApi from "../../core/controllers/Profile";
 import URLS from "../../core/api/URLS";
 function handelClick() {
   //@ts-ignore
-  document.getElementById('input_file').click()
+  document.getElementById("input_file").click();
 }
 
-export default class Profile extends Block{
+export default class Profile extends Block {
   constructor(props: any) {
-
     const currentUser = store.getState();
     const defaultValues = {
       avatar: currentUser.avatar,
@@ -27,11 +26,10 @@ export default class Profile extends Block{
       phone: currentUser.phone,
       dispaly_name: currentUser.dispaly_name,
       isLoading: currentUser.isLoading,
-
     };
     const customEvents = [
       {
-        selector: '#sign-out',
+        selector: "#sign-out",
         events: {
           click: () => {
             Authorization.signOut();
@@ -39,15 +37,15 @@ export default class Profile extends Block{
         },
       },
       {
-        selector: '#change_avatar',
+        selector: "#change_avatar",
         events: {
           click: () => {
-          handelClick()
+            handelClick();
           },
         },
       },
       {
-        selector: '#input_file',
+        selector: "#input_file",
         events: {
           change: (e: Event) => {
             const formData = new FormData();
@@ -56,7 +54,7 @@ export default class Profile extends Block{
               return;
             }
             const [file] = files;
-            formData.append('avatar', file);
+            formData.append("avatar", file);
             ProfileApi.updateAvatar(formData);
           },
         },
@@ -68,7 +66,9 @@ export default class Profile extends Block{
   componentDidMount() {
     store.subscribe((state) => {
       this.setProps({
-        avatar: !state.currentUser.avatar? Avatar: URLS.RESOURCES_URL+state.currentUser.avatar,
+        avatar: !state.currentUser.avatar
+          ? Avatar
+          : URLS.RESOURCES_URL + state.currentUser.avatar,
         first_name: state.currentUser.first_name,
         second_name: state.currentUser.second_name,
         display_name: state.currentUser.display_name,

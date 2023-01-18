@@ -2,7 +2,6 @@ import Block from "../../core/block/Block";
 import "./input.css";
 
 export class Textarea extends Block {
-
   render() {
     const temp = `
                         <textarea

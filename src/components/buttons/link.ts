@@ -3,12 +3,9 @@ import Block from "../../core/block/Block";
 import "./buttons.css";
 
 export class Link extends Block {
-  constructor({
-    text,
-    url
-} : LinkProps) {
-    super({ text, url});
-}
+  constructor({ text, url }: LinkProps) {
+    super({ text, url });
+  }
   render() {
     const temp = `
         <a class="link" href='<% this.url %>'>

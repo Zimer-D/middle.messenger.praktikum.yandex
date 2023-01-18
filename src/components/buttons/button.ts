@@ -3,16 +3,14 @@ import Block from "../../core/block/Block";
 import "./buttons.css";
 
 export class Button extends Block {
-  constructor({
-    text, 
-    type,
-    id, 
-    onClick = () => {},
-} : ButtonProps) {
+  constructor({ text, type, id, onClick = () => {} }: ButtonProps) {
     super({
-        text, type, id, events: { click: onClick },
+      text,
+      type,
+      id,
+      events: { click: onClick },
     });
-}
+  }
   render() {
     const temp = `
     <div class="buttonWrapper">

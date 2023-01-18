@@ -3,7 +3,6 @@ import Block from "../../core/block/Block";
 import "./profile.css";
 
 export class ProfileEdit extends Block {
-
   render() {
     const temp = `   
     <div class="profileData">

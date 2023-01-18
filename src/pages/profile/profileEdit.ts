@@ -53,7 +53,9 @@ export default class EditProfile extends Block {
   componentDidMount() {
     store.subscribe((state) => {
       this.setProps({
-        avatar: !state.currentUser.avatar? Avatar: URLS.RESOURCES_URL+state.currentUser.avatar,
+        avatar: !state.currentUser.avatar
+          ? Avatar
+          : URLS.RESOURCES_URL + state.currentUser.avatar,
         first_name: state.currentUser.first_name,
         second_name: state.currentUser.second_name,
         email: state.currentUser.email,
@@ -63,7 +65,7 @@ export default class EditProfile extends Block {
     });
   }
   handleSubmit(target: any) {
-    this.errors=[]
+    this.errors = [];
     const x = Object.keys(target).map((key) => {
       return target[key];
     });
@@ -199,7 +201,7 @@ export default class EditProfile extends Block {
       key: "Имя в чате",
       value: this.props.dispaly_name,
       type: "text",
-      name: 'display_name'
+      name: "display_name",
     });
     const phone = new ProfileEdit({
       key: "Телефон",

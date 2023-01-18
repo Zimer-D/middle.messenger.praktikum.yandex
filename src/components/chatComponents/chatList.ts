@@ -12,7 +12,6 @@ import { Button } from "../buttons/button";
 import Trash from "../../../static/assets/trash.png";
 import URLS from "../../core/api/URLS";
 
-
 export class ChatList extends Block {
   constructor(props: TProps = {}) {
     const defaultValues = {
@@ -21,7 +20,7 @@ export class ChatList extends Block {
 
     const customEvents = [
       {
-        selector: '.button',
+        selector: ".button",
         events: {
           click: () => {
             this.children.newChatModal.setProps({ isOpened: true });
@@ -29,39 +28,38 @@ export class ChatList extends Block {
         },
       },
       {
-        selector: '.chatListItem',
+        selector: ".chatListItem",
         events: {
           click: (e) => {
-          router.go(`/chats/${e.target.id}`)
+            router.go(`/chats/${e.target.id}`);
           },
         },
       },
       {
-        selector: '.delChat',
+        selector: ".delChat",
         events: {
-            click: (e) => {
-                ChatApi.deleteChat({ 'chatId': e.target.id })
-            },
-        },
-    },
-    {
-      selector: '#chatSearch',
-      events: {
-          click: () => {
-                  const searchInput = document.getElementById('cSearch')
-                  searchInput?.addEventListener("input", (event) => {
-                  //@ts-ignore
-                  let value = event.target?.value
-                    setTimeout(()=>{
-                      this.setProps({chatSearchValue:value})
-                    },1500)
-              })
+          click: (e) => {
+            ChatApi.deleteChat({ chatId: e.target.id });
           },
+        },
       },
-  },
+      {
+        selector: "#chatSearch",
+        events: {
+          click: () => {
+            const searchInput = document.getElementById("cSearch");
+            searchInput?.addEventListener("input", (event) => {
+              //@ts-ignore
+              let value = event.target?.value;
+              setTimeout(() => {
+                this.setProps({ chatSearchValue: value });
+              }, 1500);
+            });
+          },
+        },
+      },
     ];
 
-  
     const propsAndChildren = { ...props, ...defaultValues };
     super(propsAndChildren, customEvents);
   }
@@ -88,11 +86,10 @@ export class ChatList extends Block {
     });
   }
   render() {
-
-  console.log(3434,this.props.chatSearchValue, this.props.chatList)
+    console.log(3434, this.props.chatSearchValue, this.props.chatList);
     this.children.button = new Button({
-      text: 'Создать чат',
-      type: 'button',
+      text: "Создать чат",
+      type: "button",
     });
     this.children.newChatModal = new NewChatModal({});
     const temp = `
@@ -110,33 +107,50 @@ export class ChatList extends Block {
             <% this.newChatModal %>
             <% this.button %>
             
-               ${!!this.props.chatList?
-                this.props.chatList.map(
-                   (item: TProps) =>
-                     ` 
+               ${
+                 !!this.props.chatList
+                   ? this.props.chatList
+                       .map(
+                         (item: TProps) =>
+                           ` 
                <div id=${item.id} class="chatListItem">
                     <div class="chat-avatar">
-                    <img src=${!!item.avatar?(URLS.RESOURCES_URL+item.avatar):Avatar} alt="noavatar" />
+                    <img src=${
+                      !!item.avatar ? URLS.RESOURCES_URL + item.avatar : Avatar
+                    } alt="noavatar" />
                     </div>
                     <div class="chat-1">
                         <div class="chat-name">${item.title}</div>
-                        <div class="last-message">${item.last_message?.content??''}</div>
+                        <div class="last-message">${
+                          item.last_message?.content ?? ""
+                        }</div>
                     </div>
                     <div class="chat-2">
-                        <div class="chat-time">${!!item.last_message?new Date(item.last_message?.time).toLocaleTimeString():''}</div>
-                        ${item.unread_count !== 0
+                        <div class="chat-time">${
+                          !!item.last_message
+                            ? new Date(
+                                item.last_message?.time
+                              ).toLocaleTimeString()
+                            : ""
+                        }</div>
+                        ${
+                          item.unread_count !== 0
                             ? `<div class="chat-unread">${item.unread_count}</div>`
                             : '<div class="chat-unread__0"></div>'
                         }
                     </div>
                     <div class='icon'>
-                    <img alt='icon' id=${item.id} class='delChat' src=${Trash} />
+                    <img alt='icon' id=${
+                      item.id
+                    } class='delChat' src=${Trash} />
                     </div>
 
            </div>
             `
-                 )
-                 .join(" "): ''}
+                       )
+                       .join(" ")
+                   : ""
+               }
             </div>
         </div>
       `;

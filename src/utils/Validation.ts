@@ -19,7 +19,7 @@ export const validateLogin = (value: string): string => {
     return (errorMessage = `Поле логин должно содержать от 3 до 20 латинских символов`);
   }
 
-  return  errorMessage;
+  return errorMessage;
 };
 
 export const validateName = (value: string): string => {
@@ -31,7 +31,7 @@ export const validateName = (value: string): string => {
     return (errorMessage = "Не менее 3 символов");
   }
 
-  return  errorMessage;
+  return errorMessage;
 };
 
 export const validatePassword = (value: string): string => {
@@ -40,7 +40,7 @@ export const validatePassword = (value: string): string => {
     return (errorMessage = `Пароль должен содержать от 8 до 40 латинских символов, цифру и заглавную букву`);
   }
 
-  return  errorMessage;
+  return errorMessage;
 };
 
 export const validatePhone = (value: string): string => {
@@ -49,5 +49,5 @@ export const validatePhone = (value: string): string => {
     return (errorMessage = `Некорректный номер телефна`);
   }
 
-  return  errorMessage;
+  return errorMessage;
 };

@@ -7,7 +7,6 @@ import MessasgesApi from "../../core/controllers/MessasgesApi";
 import router from "../../core/router";
 import { store } from "../../core/store";
 
-
 export default class Chat extends Block {
   protected currentChatId: number | null | string;
 
@@ -20,7 +19,8 @@ export default class Chat extends Block {
   }
 
   requestMessages(token: string, chatId: number) {
-    const userId = store.getState().currentUser.id ?? localStorage.getItem('userId');
+    const userId =
+      store.getState().currentUser.id ?? localStorage.getItem("userId");
 
     MessasgesApi.connect({
       userId,
@@ -34,12 +34,11 @@ export default class Chat extends Block {
       return;
     }
 
-    ChatApi.getToken(chatId)
-      .then((token) => {
-        if (token) {
-          this.requestMessages(token, chatId);
-        }
-      });
+    ChatApi.getToken(chatId).then((token) => {
+      if (token) {
+        this.requestMessages(token, chatId);
+      }
+    });
   }
   render() {
     const chatList = new ChatList({ currentChatId: this.props.currentChatId });
