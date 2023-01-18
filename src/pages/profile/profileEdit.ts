@@ -226,7 +226,7 @@ export default class EditProfile extends Block {
       },
     });
     const header = new Header({
-      text: "Anonim",
+      text: this.props.login,
     });
     const button = new Button({
       type: "submit",
