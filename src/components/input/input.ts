@@ -1,18 +1,8 @@
-import { InputProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./input.css";
 
-export class Input extends Block<InputProps> {
-  constructor({
-    label, 
-    type, 
-    value,
-    name,
-    errors,
-    events
-} : InputProps) {
-    super({ label, type, value, name, errors, events});
-}
+export class Input extends Block<TProps> {
   render() {
     const temp = `<div class="input-group">
                         <input 

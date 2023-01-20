@@ -4,10 +4,8 @@ import { Header } from "../../components/header/header";
 import Block from "../../core/block/Block";
 import "./modal.css";
 
-
-
-export class Modal extends Block<PageType> {
-  constructor(props:TProps) {
+export class Modal extends Block {
+  constructor(props: TProps) {
     super({
       ...props,
     });

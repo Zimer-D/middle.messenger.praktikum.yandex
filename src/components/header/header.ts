@@ -1,16 +1,14 @@
-import { HeaderProps } from "../../../types/types";
+import { HeaderProps, TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./header.css";
 
-export class Header extends Block<HeaderProps> {
-  constructor({
-    text, 
-    className, 
-} : HeaderProps) {
+export class Header extends Block<TProps> {
+  constructor({ text, className }: HeaderProps) {
     super({
-        text, className,
+      text,
+      className,
     });
-}
+  }
   render() {
     const temp = `
         <a class="header <% this.className %>">

@@ -1,14 +1,11 @@
-import { ProfileDataProps } from "../../../types/types";
+import { ProfileDataProps, TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
-export class ProfileData extends Block<ProfileDataProps> {
-  constructor({
-    key,
-    value
-} : ProfileDataProps) {
-    super({ key, value});
-}
+export class ProfileData extends Block<TProps> {
+  constructor({ key, value }: ProfileDataProps) {
+    super({ key, value });
+  }
   render() {
     const temp = `   
      <div class="profileData">

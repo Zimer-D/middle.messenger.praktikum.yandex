@@ -1,7 +1,7 @@
 import { PageType } from "../../../types/types";
 import Block from "../../core/block/Block";
 
-export default class Error404 extends Block<PageType> {
+export default class Error404 extends Block {
   render() {
     const temp = `
     <main> 
@@ -13,7 +13,7 @@ export default class Error404 extends Block<PageType> {
           <div>
           Не туда попали
           </div>
-          <a href="./chat">
+          <a href="./chats">
               Назад к чатам
           </a>
           </div>

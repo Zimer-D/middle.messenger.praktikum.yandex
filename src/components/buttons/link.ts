@@ -2,13 +2,10 @@ import { LinkProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./buttons.css";
 
-export class Link extends Block<LinkProps> {
-  constructor({
-    text,
-    url
-} : LinkProps) {
-    super({ text, url});
-}
+export class Link extends Block {
+  constructor({ text, url }: LinkProps) {
+    super({ text, url });
+  }
   render() {
     const temp = `
         <a class="link" href='<% this.url %>'>

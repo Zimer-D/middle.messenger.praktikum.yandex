@@ -12,18 +12,24 @@ import {
   validateName,
   validatePhone,
 } from "../../utils/Validation";
+import { store } from "../../core/store";
+import { getFormData } from "../../utils/GetData";
+import ProfileApi from "../../core/controllers/Profile";
+import { RESOURCES_URL } from "../../core/api/URLS";
 
 
-export default class EditProfile extends Block<PageType> {
+export default class EditProfile extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
+    const currentUser = store.getState();
     const defaultValues = {
-      emailValue: "dmitry.zimer",
-      loginValue: "",
-      firstNameValue: "",
-      secondNameValu: "",
-      nickNameValue: "",
-      phoneValue: "",
+      emailValue: currentUser.email,
+      loginValue: currentUser.login,
+      firstNameValue: currentUser.first_name,
+      secondNameValu: currentUser.second_name,
+      nickNameValue: currentUser.dispaly_name,
+      phoneValue: currentUser.phone,
+      isLoading: currentUser.isLoading,
     };
 
     const customEvents = [
@@ -32,9 +38,10 @@ export default class EditProfile extends Block<PageType> {
         events: {
           submit: (e: any) => {
             e.preventDefault();
-            const target = { ...e.target };
+            const target = e.target as HTMLFormElement;
+            const formData = getFormData([...target]);
             this.removeChildrenListeners();
-            this.handleSubmit(target);
+            this.handleSubmit(formData);
           },
         },
       },
@@ -44,32 +51,45 @@ export default class EditProfile extends Block<PageType> {
 
     super(propsAndChildren, customEvents);
   }
+  componentDidMount() {
+    store.subscribe((state) => {
+      this.setProps({
+        avatar: !state.currentUser.avatar
+          ? Avatar
+          : RESOURCES_URL + state.currentUser.avatar,
+        first_name: state.currentUser.first_name,
+        second_name: state.currentUser.second_name,
+        email: state.currentUser.email,
+        login: state.currentUser.login,
+        phone: state.currentUser.phone,
+      });
+    });
+  }
   handleSubmit(target: any) {
-    this.errors=[]
+    this.errors = [];
     const x = Object.keys(target).map((key) => {
       return target[key];
     });
     const myTarget = x.filter((q) => q.nodeName === "INPUT");
     const valid =
       this.errors.filter((n) => n).length == 0 &&
-      !myTarget.filter((q) => q.value === "");
+      myTarget.filter((q) => q.value === "");
     const formData = {};
 
     if (valid) {
-      Object.entries(target).forEach(([key, child]) => {
-        console.log(key, child);
-        // @ts-ignore
-        if (child.nodeName === "INPUT") {
-          // @ts-ignore
-          if (!child.value) {
-            this.errors.push("Заполните пустые поля");
-          }
-          // @ts-ignore
-          formData[child.name] = child.value;
-        }
+      store.setState({
+        accountEditPage: {
+          isLoading: true,
+        },
       });
 
-      console.log(formData);
+      ProfileApi.updateInfo(target).then(() => {
+        store.setState({
+          accountEditPage: {
+            isLoading: false,
+          },
+        });
+      });
     } else {
       this.errors.push("Заполните пустые поля");
       this.render();
@@ -94,7 +114,7 @@ export default class EditProfile extends Block<PageType> {
       type: "text",
       name: "email",
       errors: this.errors,
-      value: this.props.emailValue,
+      value: this.props.email,
       events: {
         blur: (e: any) => {
           this.setProps({ emailValue: e.target.value });
@@ -117,7 +137,7 @@ export default class EditProfile extends Block<PageType> {
       type: "text",
       name: "login",
       errors: this.errors,
-      value: this.props.loginValue,
+      value: this.props.login,
       events: {
         blur: (e: any) => {
           this.setProps({ loginValue: e.target.value });
@@ -139,7 +159,7 @@ export default class EditProfile extends Block<PageType> {
       type: "text",
       name: "first_name",
       errors: this.errors,
-      value: this.props.firstNameValue,
+      value: this.props.first_name,
       events: {
         blur: (e: any) => {
           this.setProps({ firstNameValue: e.target.value });
@@ -161,7 +181,7 @@ export default class EditProfile extends Block<PageType> {
       type: "text",
       name: "second_name",
       errors: this.errors,
-      value: this.props.secondNameValue,
+      value: this.props.second_name,
       events: {
         blur: (e: any) => {
           this.setProps({ secondNameValue: e.target.value });
@@ -180,26 +200,26 @@ export default class EditProfile extends Block<PageType> {
     });
     const nickName = new ProfileEdit({
       key: "Имя в чате",
-      value: this.props.nickNameValue,
+      value: this.props.dispaly_name,
       type: "text",
-      name: 'nick-name'
+      name: "display_name",
     });
     const phone = new ProfileEdit({
       key: "Телефон",
-      value: this.props.nickNameValue,
+      value: this.props.phone,
       type: "text",
       errors: this.errors,
       name: "phone",
       events: {
         blur: (e: any) => {
-          this.setProps({ nickNameValue: e.target.value });
-          const errorMessage = validatePhone(this.props.phoneValue);
+          this.setProps({ phoneValue: e.target.value });
+          const errorMessage = validatePhone(this.props.phone);
           this.errors.push(errorMessage);
           this.showErrors();
         },
         focus: () => {
           setTimeout(() => {
-            const errorMessage = validatePhone(this.props.phoneValue);
+            const errorMessage = validatePhone(this.props.phone);
             this.errors.push(errorMessage);
             this.showErrors();
           }, 10000);
@@ -207,7 +227,7 @@ export default class EditProfile extends Block<PageType> {
       },
     });
     const header = new Header({
-      text: "Anonim",
+      text: this.props.login,
     });
     const button = new Button({
       type: "submit",
@@ -229,7 +249,7 @@ export default class EditProfile extends Block<PageType> {
         <div class='container'>   
             <div class="profile">
                 <div class="avatar">
-                <img src=${Avatar} alt="avatar" class="avatarImage" />
+                <img src='<% this.avatar %>' alt="avatar" class="avatarImage" />
             </div>
             <div style='margin: 0 auto'><% this.header %></div>
             <form id='profileForm'>
@@ -247,6 +267,6 @@ export default class EditProfile extends Block<PageType> {
          </div>
     </main> 
         `;
-    return this.compile(temp, ctx);
+    return this.compile(temp, this.props);
   }
 }

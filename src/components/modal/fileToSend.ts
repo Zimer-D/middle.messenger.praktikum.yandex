@@ -6,8 +6,9 @@ import Image from "../../../static/assets/image.png";
 import Document from "../../../static/assets/document.png";
 // @ts-expect-error
 import Location from "../../../static/assets/location.png";
+import { TProps } from "../../../types/types";
 
-export class FileToSend extends Block {
+export class FileToSend extends Block<TProps> {
   render() {
     const temp = `
         <div id='fileToSend' class="fileToSend">

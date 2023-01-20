@@ -1,5 +1,3 @@
-
-
 :root {
   --gray: #eaeaea;
   --dark-gray: #afafaf;
@@ -61,11 +59,13 @@
 }
 
 .chat-area {
+  overflow: hidden;
   display: grid;
-  grid-template-rows: 72px auto 20px;
+  grid-template-rows: 70px auto 100px;
 }
 
 .contactList {
+  overflow: hidden;
   background-color: var(--slight-gray);
   border-right: 1px solid var(--gray);
 }
@@ -95,6 +95,7 @@
 }
 
 .contact-list {
+  display: block;
   overflow-y: auto;
 }
 

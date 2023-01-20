@@ -1,20 +1,25 @@
 import { RecordItem } from "../../../types/types";
 
-const METHODS = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  DELETE: "DELETE",
+
+type HTTPMethod = (url: string, options?: any) => Promise<unknown>
+
+enum METHODS {
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
+}
+
+const defaultHeaders = {
+  "Content-type": "application/json; charset=UTF-8",
 };
 
-// Самая простая версия. Реализовать штучку со всеми проверками им предстоит в конце спринта
-// Необязательный метод
-function queryStringify(data: RecordItem) {
+function queryStringify(data = {} as RecordItem) {
   if (typeof data !== "object") {
     throw new Error("Data must be object");
   }
 
-  // Здесь достаточно и [object Object] для объекта
   const keys = Object.keys(data);
   return keys.reduce(
     (result, key, index) =>
@@ -23,28 +28,32 @@ function queryStringify(data: RecordItem) {
   );
 }
 
-class API {
-  get = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+class Client {
+  get: HTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.GET }, options!.timeout);
 
-  post = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+  post: HTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.POST }, options!.timeout);
 
-  put = (url: string, options: RecordItem = {}) =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+  put: HTTPMethod = (url, options = {}) =>
+    this.request(url, { ...options, method: METHODS.PUT }, options!.timeout);
 
-  delete = (url: string, options: RecordItem = {}) =>
+  delete: HTTPMethod = (url, options = {}) =>
     this.request(
       url,
       {
         ...options,
         method: METHODS.DELETE,
       },
-      options.timeout
+      options!.timeout
     );
 
-  request = (url: string, options: RecordItem = {}, timeout = 5000) => {
-    const { headers = {}, method, data } = options;
+  request = (url: string, options: any, timeout = 10000) => {
+    let { headers = {}, method, data } = options;
+
+    if (Object.keys(headers).length == 0 && !(data instanceof FormData)) {
+      headers = defaultHeaders;
+    }
 
     return new Promise((resolve, reject) => {
       if (!method) {
@@ -52,8 +61,10 @@ class API {
         return;
       }
 
-      const xhr = new XMLHttpRequest();
+      const xhr = new window.XMLHttpRequest();
       const isGet = method === METHODS.GET;
+
+      xhr.withCredentials = true;
 
       xhr.open(method, isGet && !!data ? `${url}${queryStringify(data)}` : url);
 
@@ -62,6 +73,20 @@ class API {
       });
 
       xhr.onload = function () {
+        let resp: any = "";
+
+        if (xhr.response === "OK") {
+          resp = { status: "OK" };
+        } else {
+          resp = JSON.parse(xhr.response);
+        }
+
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(resp);
+        } else {
+          reject(resp);
+        }
+
         resolve(xhr);
       };
 
@@ -79,3 +104,5 @@ class API {
     });
   };
 }
+
+export default new Client();
