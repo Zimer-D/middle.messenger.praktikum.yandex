@@ -8,7 +8,7 @@ import { Button } from "../buttons/button";
 import Xmark from "../../../static/assets/xmark.png";
 import "./modal.css";
 
-export default class NewChatModal extends Block {
+export default class NewChatModal extends Block<TProps> {
   constructor(props: TProps) {
     const defaultValues = {
       isLoading: false,

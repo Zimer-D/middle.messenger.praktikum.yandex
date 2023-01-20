@@ -1,12 +1,12 @@
-import URLS from "../api/URLS";
 import router from "../router";
 import { store } from "../store";
 import Client from "../api/Api";
 import { PasswordUpdate, UserData } from "../../../types/types";
+import { API_URL } from "../api/URLS";
 
 class ProfileApi {
   public updateInfo(data: UserData) {
-    return Client.put(`${URLS.API_URL}/user/profile`, {
+    return Client.put(`${API_URL}/user/profile`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -17,7 +17,7 @@ class ProfileApi {
   }
 
   public updatePassword(data: PasswordUpdate) {
-    return Client.put(`${URLS.API_URL}/user/password`, {
+    return Client.put(`${API_URL}/user/password`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -28,7 +28,7 @@ class ProfileApi {
   }
 
   public updateAvatar(data: FormData) {
-    return Client.put(`${URLS.API_URL}/user/profile/avatar`, {
+    return Client.put(`${API_URL}/user/profile/avatar`, {
       data,
     })
       .then((user: any) => {

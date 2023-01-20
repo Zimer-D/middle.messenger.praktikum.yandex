@@ -1,8 +1,8 @@
 import { RecordItem } from "../../../types/types";
-import URLS from "../api/URLS";
 import router from "../router";
 import Client from "../api/Api";
 import { store } from "../store";
+import { API_URL } from "../api/URLS";
 
 interface ILoginData {
   login: string;
@@ -20,7 +20,7 @@ declare interface IRegistrationData {
 
 class AuthController {
   public signIn(data: ILoginData) {
-    return Client.post(`${URLS.API_URL}/auth/signin`, {
+    return Client.post(`${API_URL}/auth/signin`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -32,7 +32,7 @@ class AuthController {
   }
 
   public signUp(data: IRegistrationData) {
-    return Client.post(`${URLS.API_URL}/auth/signup`, {
+    return Client.post(`${API_URL}/auth/signup`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -42,7 +42,7 @@ class AuthController {
   }
 
   public signOut() {
-    Client.post(`${URLS.API_URL}/auth/logout`)
+    Client.post(`${API_URL}/auth/logout`)
       .then(() => {
         router.go("/login");
       })
@@ -50,7 +50,7 @@ class AuthController {
   }
 
   public checkAuth() {
-    return Client.get(`${URLS.API_URL}/auth/user`)
+    return Client.get(`${API_URL}/auth/user`)
       .then((response: any) => {
         const user = response;
         user.isLoading = false;

@@ -11,10 +11,10 @@ import { store } from "../../core/store";
 import Trash from "../../../static/assets/trash.png";
 // @ts-expect-error
 import Checked from "../../../static/assets/checked.png";
-import URLS from "../../core/api/URLS";
 import Client from "../../core/api/Api";
+import { API_URL } from "../../core/api/URLS";
 
-export default class ChatUsersList extends Block {
+export default class ChatUsersList extends Block<TProps> {
   constructor(props: TProps) {
     const { id = null } = router.getParams();
 
@@ -65,7 +65,9 @@ export default class ChatUsersList extends Block {
     const propsAndChildren = { ...props, currentChatId: id };
 
     super(propsAndChildren, customEvents);
-    this.getUsers(id);
+    // if(!!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0){return}else{
+    this.getUsers(id)
+  // };
   }
   getUsers(chatId: number | null) {
     if (!chatId) {
@@ -88,7 +90,7 @@ export default class ChatUsersList extends Block {
     const data = {
       login: value,
     };
-    Client.post(`${URLS.API_URL}/user/search`, { data: JSON.stringify(data) })
+    Client.post(`${API_URL}/user/search`, { data: JSON.stringify(data) })
       .then((res: any) => {
         this.setProps({ searchedUsers: res });
       })
@@ -98,9 +100,9 @@ export default class ChatUsersList extends Block {
   }
 
   render() {
-    let ownerId = store.getState().currentChat.created_by;
-    let userId = store.getState().currentUser.id;
-    let usersList = store.getState().chatUsers?.filter((q) => q.id != userId);
+    let ownerId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentChat?.created_by:'';
+    let userId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentUser.id:'';
+    let usersList = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().chatUsers?.filter((q) => q.id != userId):'';
 
     this.children.button = new Button({
       text: "Поиск",

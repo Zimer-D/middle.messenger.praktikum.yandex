@@ -1,8 +1,8 @@
-import { HeaderProps } from "../../../types/types";
+import { HeaderProps, TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./header.css";
 
-export class Header extends Block {
+export class Header extends Block<TProps> {
   constructor({ text, className }: HeaderProps) {
     super({
       text,

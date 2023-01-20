@@ -1,5 +1,6 @@
 import Client from "../api/Api";
-import URLS from "../api/URLS";
+import { API_URL } from "../api/URLS";
+
 import router from "../router";
 import { store } from "../store";
 
@@ -9,12 +10,12 @@ interface INewChatData {
 
 class ChatApi {
   public newChat(data: INewChatData) {
-    return Client.post(`${URLS.API_URL}/chats`, {
+    return Client.post(`${API_URL}/chats`, {
       data: JSON.stringify(data),
     })
       .then((response: any) => {
         if (response!.id) {
-          router.go(`/chats/${response!.id}`, true);
+          router.go(`/chats/${response!.id}`);
           return response!.id;
         }
       })
@@ -25,7 +26,7 @@ class ChatApi {
 
   public getChats() {
     console.log("ПОЛУЧАЕМ ЧАТЫ");
-    return Client.get(`${URLS.API_URL}/chats`)
+    return Client.get(`${API_URL}/chats`)
       .then((chatList: any) => {
         store.setState({
           chatList,
@@ -42,10 +43,11 @@ class ChatApi {
         return chatId[key];
       })[0],
     };
-    return Client.delete(`${URLS.API_URL}/chats`, {
+    return Client.delete(`${API_URL}/chats`, {
       data: JSON.stringify(data),
     })
       .then(() => {
+        router.go('/chats');
         alert("Чат удален");
       })
       .catch((e) => {
@@ -55,7 +57,7 @@ class ChatApi {
 
   getChatUsers(id) {
     console.log("ПОЛУЧАЕМ ЮЗЕРОВ");
-    return Client.get(`${URLS.API_URL}/chats/${id}/users`)
+    return Client.get(`${API_URL}/chats/${id}/users`)
       .then((chatUsers: any) => {
         store.setState({
           chatUsers,
@@ -77,7 +79,7 @@ class ChatApi {
         return chatId[key];
       })[0],
     };
-    return Client.delete(`${URLS.API_URL}/chats/users`, {
+    return Client.delete(`${API_URL}/chats/users`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -100,7 +102,7 @@ class ChatApi {
       })[0],
     };
     console.log(32323, JSON.stringify(data));
-    return Client.put(`${URLS.API_URL}/chats/users`, {
+    return Client.put(`${API_URL}/chats/users`, {
       data: JSON.stringify(data),
     })
       .then(() => {
@@ -115,7 +117,7 @@ class ChatApi {
     const data = {
       login: userLogin,
     };
-    return Client.post(`${URLS.API_URL}/user/search`, JSON.stringify(data))
+    return Client.post(`${API_URL}/user/search`, JSON.stringify(data))
       .then(() => {
         alert("Пользователь удален из чата");
       })
@@ -125,7 +127,7 @@ class ChatApi {
   }
   getToken(chatId: number) {
     console.log(`ПОЛУЧАЕМ ТОКЕН ДЛЯ ЧАТА ${chatId}`);
-    return Client.post(`${URLS.API_URL}/chats/token/${chatId}`)
+    return Client.post(`${API_URL}/chats/token/${chatId}`)
       .then((response: any) => {
         console.log(`ТОКЕН ПОЛУЧЕН  : ${response!.token}`);
         return response!.token;
@@ -134,22 +136,14 @@ class ChatApi {
         console.log(e);
       });
   }
-  public updateAvatar(chatId, data: FormData) {
-    const form = {
-      chatId: chatId,
-      data: data,
-    };
-    return Client.put(`${URLS.API_URL}/chats/avatar`, {
-      headers: {
-        accept: "application/json",
-        "Content-Type": "multipart/form-data",
-      },
-      data: form,
+  public updateAvatar(data: FormData) {
+    return Client.put(`${API_URL}/chats/avatar`, {
+      data: data
     })
-      .then((user: any) => {
+      .then((avatar: any) => {
         alert("Аватар обновлен");
         store.setState({
-          currentUser: user,
+          currentChat: avatar,
         });
       })
       .catch(() => alert("Что-то пошло не так, попробуйте позднее..."));

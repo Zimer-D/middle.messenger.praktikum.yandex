@@ -1,7 +1,8 @@
+import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./input.css";
 
-export class Textarea extends Block {
+export class Textarea extends Block<TProps> {
   render() {
     const temp = `
                         <textarea

@@ -1,5 +1,7 @@
-import URLS from "../api/URLS";
+
+import { API_WS_URL } from "../api/URLS";
 import { store } from "../store";
+
 
 class MessageApi {
   private _ws: WebSocket;
@@ -41,7 +43,15 @@ class MessageApi {
   }
 
   private _onMessage(response: MessageEvent) {
-    const data = JSON.parse(response.data);
+    let data ;
+    if(response) {
+      try {
+         data = JSON.parse(response.data);
+      } catch(e) {
+          alert('Что-nо пошло не так');
+          console.log(e) 
+      }
+    }
     if (Array.isArray(data)) {
       if (!data.length) {
         store.setState({ messages: [] });
@@ -87,7 +97,7 @@ class MessageApi {
     this._chatId = options.chatId;
     this._token = options.token;
     this._ws = new WebSocket(
-      `${URLS.API_WS_URL}/chats/${options.userId}/${options.chatId}/${options.token}`
+      `${API_WS_URL}/chats/${options.userId}/${options.chatId}/${options.token}`
     );
     this._addEvents();
   }

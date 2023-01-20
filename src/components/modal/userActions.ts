@@ -4,7 +4,8 @@ import "./modal.css";
 import Add from "../../../static/assets/add.png";
 // @ts-expect-error
 import XMark from "../../../static/assets/xmark.png";
-export class UserActions extends Block {
+import { TProps } from "../../../types/types";
+export class UserActions extends Block<TProps> {
   render() {
     const temp = `
         <div  id='userActions'class="user-actions">

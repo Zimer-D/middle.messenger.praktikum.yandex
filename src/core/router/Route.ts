@@ -5,7 +5,7 @@ function isEqual(lhs: string, rhs: string) {
   return lhs === rhs;
 }
 
-function render(query: string, block: Block) {
+function render(query: string, block: Block<TProps>) {
   const root = document.querySelector(query);
   if (root) {
     root.append(block.getContent()!);
@@ -19,7 +19,7 @@ class Route {
 
   private _blockClass: typeof Block;
 
-  private _block: Block | null;
+  private _block: Block<TProps> | null;
 
   private _props: TProps;
 

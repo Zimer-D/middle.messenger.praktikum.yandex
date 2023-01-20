@@ -4,18 +4,21 @@ import Block from "../../core/block/Block";
 import "./profile.css";
 // @ts-expect-error
 import Avatar from "../../../static/assets/avatar.png";
-import { PageType } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { store } from "../../core/store";
 import Authorization from "../../core/controllers/Authorization";
 import ProfileApi from "../../core/controllers/Profile";
-import URLS from "../../core/api/URLS";
+// @ts-expect-error
+import ArrowLeft from "../../../static/assets/arrowleft.png";
+import router from "../../core/router";
+import { RESOURCES_URL } from "../../core/api/URLS";
 function handelClick() {
   //@ts-ignore
   document.getElementById("input_file").click();
 }
 
-export default class Profile extends Block {
-  constructor(props: any) {
+export default class Profile extends Block<TProps> {
+  constructor(props: TProps) {
     const currentUser = store.getState();
     const defaultValues = {
       avatar: currentUser.avatar,
@@ -45,6 +48,14 @@ export default class Profile extends Block {
         },
       },
       {
+        selector: "#backToChats",
+        events: {
+          click: () => {
+           router.go('/chats')
+          },
+        },
+      },
+      {
         selector: "#input_file",
         events: {
           change: (e: Event) => {
@@ -68,7 +79,7 @@ export default class Profile extends Block {
       this.setProps({
         avatar: !state.currentUser.avatar
           ? Avatar
-          : URLS.RESOURCES_URL + state.currentUser.avatar,
+          : RESOURCES_URL + state.currentUser.avatar,
         first_name: state.currentUser.first_name,
         second_name: state.currentUser.second_name,
         display_name: state.currentUser.display_name,
@@ -109,7 +120,6 @@ export default class Profile extends Block {
     const header = new Header({
       text: this.props.display_name,
     });
-
     this.children.email = email;
     this.children.login = login;
     this.children.firstName = firstName;
@@ -117,27 +127,36 @@ export default class Profile extends Block {
     this.children.nickName = nickName;
     this.children.phone = phone;
     this.children.header = header;
-    const ctx = this.children;
+
+    // const ctx = this.children;
     const temp = `
     <main>  
         <div class='container'>  
-            <div class="profile">
-                <div class="avatar">
-                    <img src='<% this.avatar %>' alt="avatar" class="avatarImage" />
-                    <input type="file" name=" " id='input_file' style="opacity:0">
-                    <div id="change_avatar" class="img__description">Поменять аватар</div>
-                </div>
-                    <div style='margin: 0 auto'><% this.header %></div>
-                   <% this.email %>
-                    <% this.login %>
-                    <% this.firstName %>
-                    <% this.secondName %>
-                    <% this.nickName %>
-                    <% this.phone %>
-                    <a href="/edit-profile">Изменить данные</a>
-                    <a href="/change-password">Изменить пароль</a>
-                    <a id="sign-out" href="/login" style=color:red>Выйти</a>
-            </div>  
+          <div class='icon-div'>
+          <div class='icon-wrapper'>
+            <img src=${ArrowLeft} alt="edit" style='height:22px' id='backToChats'/>
+          </div>
+                  <div class="profile">
+                
+                      <div class="avatar">
+                          <img src='<% this.avatar %>' alt="avatar" class="avatarImage" />
+                          <input type="file" name=" " id='input_file' style="opacity:0">
+                          <div id="change_avatar" class="img__description">Поменять аватар</div>
+                      </div>
+                          <div style='margin: 0 auto'>
+                              <% this.header %>
+                          </div>
+                        <% this.email %>
+                          <% this.login %>
+                          <% this.firstName %>
+                          <% this.secondName %>
+                          <% this.nickName %>
+                          <% this.phone %>
+                          <a href="/edit-profile">Изменить данные</a>
+                          <a href="/change-password">Изменить пароль</a>
+                          <a id="sign-out" href="/login" style=color:red>Выйти</a>
+                    </div> 
+            </div> 
          </div>
         
     </main> 

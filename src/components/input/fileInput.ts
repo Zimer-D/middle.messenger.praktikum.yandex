@@ -1,8 +1,8 @@
-import { FileInputProps } from "../../../types/types";
+import { FileInputProps, TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./input.css";
 
-export class FileInput extends Block<FileInputProps> {
+export class FileInput extends Block<TProps> {
   constructor({ type, value }: FileInputProps) {
     super({ type, value });
   }

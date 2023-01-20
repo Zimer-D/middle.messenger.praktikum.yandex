@@ -1,8 +1,8 @@
-import { ProfileEditProps } from "../../../types/types";
+import {  TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./profile.css";
 
-export class ProfileEdit extends Block {
+export class ProfileEdit extends Block<TProps> {
   render() {
     const temp = `   
     <div class="profileData">

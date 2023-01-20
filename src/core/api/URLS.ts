@@ -1,5 +1,3 @@
-export default {
-  API_URL: "https://ya-praktikum.tech/api/v2",
-  API_WS_URL: "wss://ya-praktikum.tech/ws",
-  RESOURCES_URL: "https://ya-praktikum.tech/api/v2/resources",
-};
+ export const  API_URL= "https://ya-praktikum.tech/api/v2";
+ export const  API_WS_URL= "wss://ya-praktikum.tech/ws";
+ export const  RESOURCES_URL= `${API_URL}/resources`;

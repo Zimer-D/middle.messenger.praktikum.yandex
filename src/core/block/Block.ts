@@ -4,8 +4,14 @@ import EventBus from "../eventBus/EventBus";
 import router from "../router";
 import Templator from "../templator/Templator";
 
+
+
+export interface BlockConstructable<Props extends {}> {
+  new(props: any): Block<Props>;
+}
 type Events = Values<typeof Block.EVENTS>;
-class Block {
+
+class Block<Props extends {}>{
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -13,35 +19,17 @@ class Block {
     FLOW_RENDER: "flow:render",
   } as const;
 
-  protected _element: HTMLElement;
+  protected _element: Nullable<HTMLElement> = null;
 
   public id = UUID();
 
-  public children: { [id: string]: Block } = {};
+  public children: { [id: string]: Block<Props> } = {};
 
-  public customEvents: any = [
-    {
-      selector: ".router-link",
-      events: {
-        click: (e: Event) => {
-          e.preventDefault();
+  public customEvents: any = [];
 
-          if (e.currentTarget) {
-            const element = e.currentTarget as HTMLElement;
-            if (element.getAttribute("router-force")) {
-              router.go(element.getAttribute("href"), true);
-            } else {
-              router.go(element.getAttribute("href"));
-            }
-          }
-        },
-      },
-    },
-  ];
+  protected eventBus: () => EventBus<Events>;
 
-  protected eventBus: () => EventBus;
-
-  public props: any = {};
+  public props: Props;
 
   constructor(propsAndChildren: {} = {}, customEvents: any[] = []) {
     const { children, props } = this._getChildren(propsAndChildren);
@@ -52,8 +40,8 @@ class Block {
     }
 
     const eventBus = new EventBus();
-
-    this.props = this._makePropsProxy(props);
+    //@ts-ignore
+    this.props = this._makePropsProxy(props || {} as Props);
 
     this.eventBus = () => eventBus;
 
@@ -62,7 +50,7 @@ class Block {
   }
 
   private _getChildren(propsAndChildren: TProps) {
-    const children: { [id: string]: Block } = {};
+    const children: { [id: string]: Block<Props> } = {};
     const props: TProps = {};
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -88,7 +76,7 @@ class Block {
   }
 
   private _addEvents() {
-    const { events = {} } = this.props;
+    const { events = {} } = this.props as any;
 
     Object.keys(events).forEach((eventName) => {
       if (eventName === "blur" || eventName === "focus") {
@@ -137,6 +125,7 @@ class Block {
 
   protected removeChildrenListeners() {
     Object.entries(this.children).forEach((elem) => {
+      //@ts-ignore
       if (elem[1].props.events) {
         elem[1].setProps({ events: {} });
       }
@@ -153,7 +142,7 @@ class Block {
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected componentDidMount() {}
+  protected componentDidMount() { }
 
   protected dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -194,13 +183,13 @@ class Block {
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
       if (stub) {
-        stub.replaceWith(child.getContent());
+        stub.replaceWith(child.getContent() as any);
       }
     });
     return fragment.content;
   }
 
-  get element(): HTMLElement {
+  get element() {
     return this._element;
   }
 
@@ -220,7 +209,7 @@ class Block {
     return document.createElement("div");
   }
 
-  getContent(): HTMLElement {
+  getContent() {
     return this.element;
   }
 
@@ -277,7 +266,7 @@ class Block {
     }
   }
 
-  public onDestroy() {}
+  public onDestroy() { }
 }
 
 export default Block;

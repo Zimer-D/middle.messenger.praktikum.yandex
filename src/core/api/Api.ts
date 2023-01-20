@@ -1,5 +1,8 @@
 import { RecordItem } from "../../../types/types";
 
+
+type HTTPMethod = (url: string, options?: any) => Promise<unknown>
+
 enum METHODS {
   GET = "GET",
   POST = "POST",
@@ -26,16 +29,16 @@ function queryStringify(data = {} as RecordItem) {
 }
 
 class Client {
-  get = (url: string, options: any = {}) =>
+  get: HTTPMethod = (url, options = {}) =>
     this.request(url, { ...options, method: METHODS.GET }, options!.timeout);
 
-  post = (url: string, options: any = {}) =>
+  post: HTTPMethod = (url, options = {}) =>
     this.request(url, { ...options, method: METHODS.POST }, options!.timeout);
 
-  put = (url: string, options: any = {}) =>
+  put: HTTPMethod = (url, options = {}) =>
     this.request(url, { ...options, method: METHODS.PUT }, options!.timeout);
 
-  delete = (url: string, options: any = {}) =>
+  delete: HTTPMethod = (url, options = {}) =>
     this.request(
       url,
       {

@@ -15,9 +15,10 @@ import {
 import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import ProfileApi from "../../core/controllers/Profile";
-import URLS from "../../core/api/URLS";
+import { RESOURCES_URL } from "../../core/api/URLS";
 
-export default class EditProfile extends Block {
+
+export default class EditProfile extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
     const currentUser = store.getState();
@@ -55,7 +56,7 @@ export default class EditProfile extends Block {
       this.setProps({
         avatar: !state.currentUser.avatar
           ? Avatar
-          : URLS.RESOURCES_URL + state.currentUser.avatar,
+          : RESOURCES_URL + state.currentUser.avatar,
         first_name: state.currentUser.first_name,
         second_name: state.currentUser.second_name,
         email: state.currentUser.email,
