@@ -1,7 +1,7 @@
-import { PageType } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 
-export default class Error404 extends Block {
+export default class Error404 extends Block<TProps> {
   render() {
     const temp = `
     <main> 

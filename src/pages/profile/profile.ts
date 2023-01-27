@@ -2,13 +2,13 @@ import { Header } from "../../components/header/header";
 import { ProfileData } from "../../components/profile/profileData";
 import Block from "../../core/block/Block";
 import "./profile.css";
-// @ts-expect-error
+// @ts-ignore
 import Avatar from "../../../static/assets/avatar.png";
 import { TProps } from "../../../types/types";
 import { store } from "../../core/store";
 import Authorization from "../../core/controllers/Authorization";
 import ProfileApi from "../../core/controllers/Profile";
-// @ts-expect-error
+// @ts-ignore
 import ArrowLeft from "../../../static/assets/arrowleft.png";
 import router from "../../core/router";
 import { RESOURCES_URL } from "../../core/api/URLS";

@@ -121,7 +121,7 @@
 .fileInput::before {
   content: "Выбрать файл на компьютере";
   display: inline-block;
-  background: linear-gradient(top, var(--almost-white), var(--gray));
+  background: linear-gradient(to bottom, var(--almost-white), var(--gray));
   border: none;
   outline: none;
   white-space: nowrap;

@@ -1,7 +1,6 @@
 import { Nullable, TProps, Values } from "../../../types/types";
 import UUID from "../../utils/GenerateId";
 import EventBus from "../eventBus/EventBus";
-import router from "../router";
 import Templator from "../templator/Templator";
 
 
@@ -97,7 +96,7 @@ class Block<Props extends {}>{
       }
     });
 
-    this.customEvents.forEach((elem) => {
+    this.customEvents.forEach((elem:any) => {
       Object.keys(elem.events).forEach((eventName) => {
         if (this.element) {
           if (this.element!.querySelectorAll(elem.selector).length > 0) {

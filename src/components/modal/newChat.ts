@@ -4,7 +4,7 @@ import ChatApi from "../../core/controllers/ChatApi";
 import { getFormData } from "../../utils/GetData";
 import { Input } from "../input/input";
 import { Button } from "../buttons/button";
-// @ts-expect-error
+// @ts-ignore
 import Xmark from "../../../static/assets/xmark.png";
 import "./modal.css";
 
@@ -43,7 +43,7 @@ export default class NewChatModal extends Block<TProps> {
     super(propsAndChildren, customEvents);
   }
 
-  handleSubmit(formData) {
+  handleSubmit(formData:any) {
     this.setProps({ isLoading: true });
     ChatApi.newChat(formData).then(() => {
       this.setProps({ isLoading: false, isOpened: false, title: "" });

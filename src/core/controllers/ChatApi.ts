@@ -36,7 +36,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  deleteChat(chatId) {
+  deleteChat(chatId:any) {
     console.log("УДАЛЯЕМ ЧАТ");
     const data = {
       chatId: Object.keys(chatId).map(function (key) {
@@ -55,7 +55,7 @@ class ChatApi {
       });
   }
 
-  getChatUsers(id) {
+  getChatUsers(id:any) {
     console.log("ПОЛУЧАЕМ ЮЗЕРОВ");
     return Client.get(`${API_URL}/chats/${id}/users`)
       .then((chatUsers: any) => {
@@ -67,7 +67,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  deleteChatUser(chatId, userId) {
+  deleteChatUser(chatId:any, userId:any) {
     console.log("УДАЛЯЕМ ЮЗЕРОВ");
     const data = {
       users: [
@@ -89,7 +89,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  addChatUser(chatId, userId) {
+  addChatUser(chatId:any, userId:any) {
     console.log("ДОБАВЛЯЕМ ЮЗЕРОВ");
     const data = {
       users: [
@@ -101,7 +101,6 @@ class ChatApi {
         return chatId[key];
       })[0],
     };
-    console.log(32323, JSON.stringify(data));
     return Client.put(`${API_URL}/chats/users`, {
       data: JSON.stringify(data),
     })
@@ -112,7 +111,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  searchUsers(userLogin) {
+  searchUsers(userLogin: any) {
     console.log("ИЩЕМ ЮЗЕРОВ");
     const data = {
       login: userLogin,
@@ -125,7 +124,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  getToken(chatId: number) {
+  getToken(chatId: any) {
     console.log(`ПОЛУЧАЕМ ТОКЕН ДЛЯ ЧАТА ${chatId}`);
     return Client.post(`${API_URL}/chats/token/${chatId}`)
       .then((response: any) => {

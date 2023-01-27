@@ -1,10 +1,7 @@
 {
-  "include": ["src/modules.d.ts"],
   "compilerOptions": {
     "target": "ES2017",
     "module": "commonjs",
-    "rootDir": "src",
-    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "inlineSourceMap": true,
@@ -12,6 +9,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "typeRoots": ["node_modules/@types", "src/types", "src/modules.d.ts"]
-  }
+    "strictPropertyInitialization": false,
+    "typeRoots": [
+      "node_modules/@types",
+      "src/types",
+      "src/modules.d.ts"
+    ]
+  },
+  "include": [
+    "src/modules.d.ts",
+    "src",
+    "types/types.ts"
+  ]
 }

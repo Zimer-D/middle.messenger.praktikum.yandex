@@ -1,4 +1,3 @@
-import render from "./core/renderDom/renderDOM";
 import Error404 from "./pages/404/404";
 import Error500 from "./pages/500/500";
 import Chat from "./pages/chat/chat";
@@ -10,6 +9,7 @@ import Register from "./pages/register/register";
 import "./styles/style.css";
 import router from "./core/router";
 import Authorization from "./core/controllers/Authorization";
+
 
 router
   .setPublicRedirect("/chats")

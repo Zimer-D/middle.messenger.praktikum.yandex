@@ -1,4 +1,4 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { Input } from "../../components/input/input";
@@ -8,7 +8,7 @@ import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import { validateLogin, validatePassword } from "../../utils/Validation";
 
-export default class Login extends Block {
+export default class Login extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
@@ -52,7 +52,6 @@ export default class Login extends Block {
     const valid =
       this.errors.filter((n) => n).length == 0 &&
       myTarget.filter((q) => q.value === "");
-    const formData = {};
 
     if (valid) {
       store.setState({

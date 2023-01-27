@@ -1,10 +1,10 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import Block from "../../core/block/Block";
 import "./modal.css";
 
-export class Modal extends Block {
+export class Modal extends Block<TProps> {
   constructor(props: TProps) {
     super({
       ...props,

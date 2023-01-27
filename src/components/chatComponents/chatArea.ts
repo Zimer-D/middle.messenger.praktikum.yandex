@@ -1,31 +1,24 @@
 import Block from "../../core/block/Block";
 import "./chat.css";
-import { ChatAreaProps, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { FileToSend } from "../modal/fileToSend";
 import { UserActions } from "../modal/userActions";
-// @ts-expect-error
+// @ts-ignore
 import PaperClip from "../../../static/assets/paperclip.png";
-// @ts-expect-error
-import more from "../../../static/assets/more.png";
-// @ts-expect-error
-import Checked from "../../../static/assets/checked.png";
-// @ts-expect-error
-import DoubleChecked from "../../../static/assets/doublechecked.png";
-// @ts-expect-error
+// @ts-ignore
 import ArrowRight from "../../../static/assets/arrowright.png";
-// @ts-expect-error
+// @ts-ignore
 import Avatar from "../../../static/assets/avatar.png";
-// @ts-expect-error
+// @ts-ignore
 import Edit from "../../../static/assets/edit.png";
 import { store } from "../../core/store";
 import ChatApi from "../../core/controllers/ChatApi";
 import MessasgesApi from "../../core/controllers/MessasgesApi";
 import { getFormData } from "../../utils/GetData";
-import { Input } from "../input/input";
 import { Textarea } from "../input/textarea";
 import ChatUsersList from "../modal/chatUsersList";
 import { RESOURCES_URL } from "../../core/api/URLS";
-import router from "../../core/router";
+// import router from "../../core/router";
 
 function handelClick() {
   //@ts-ignore
@@ -33,13 +26,11 @@ function handelClick() {
 }
 document.addEventListener('DOMContentLoaded', function() {
   const element = document.getElementById('messages');
-  // element!.scrollTop = element!.scrollHeight;
-  // let scroll_to_bottom = document.getElementById('scroll-to-bottom');
 		element!.scrollIntoView(false)
 }, false);
 export class ChatArea extends Block<TProps> {
   constructor(props: TProps = {}) {
-    const { pageId = null } = router.getParams();
+    // const { pageId = null } = router.getParams();
     const defaultValues = {
       messageValue: "",
       currentUserId: localStorage.getItem("userId"),

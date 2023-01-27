@@ -51,7 +51,7 @@ class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: typeof Block, access: TAccess = "") {
+  use(pathname: string, block: typeof Block| any, access: TAccess = "") {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
     this._pathnames.push(pathname);

@@ -1,8 +1,8 @@
 import Block from "../../core/block/Block";
 import "./modal.css";
-// @ts-expect-error
+// @ts-ignore
 import Add from "../../../static/assets/add.png";
-// @ts-expect-error
+// @ts-ignore
 import XMark from "../../../static/assets/xmark.png";
 import { TProps } from "../../../types/types";
 export class UserActions extends Block<TProps> {

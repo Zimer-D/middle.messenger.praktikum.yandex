@@ -1,4 +1,4 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { ChatArea } from "../../components/chatComponents/chatArea";
 import { ChatList } from "../../components/chatComponents/chatList";
 import Block from "../../core/block/Block";
@@ -7,7 +7,7 @@ import MessasgesApi from "../../core/controllers/MessasgesApi";
 import router from "../../core/router";
 import { store } from "../../core/store";
 
-export default class Chat extends Block {
+export default class Chat extends Block<TProps> {
   protected currentChatId: number | null | string;
 
   constructor(props: TProps) {

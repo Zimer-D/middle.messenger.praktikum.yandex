@@ -2,14 +2,14 @@ import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import ChatApi from "../../core/controllers/ChatApi";
 import { Button } from "../buttons/button";
-// @ts-expect-error
+// @ts-ignore
 import Xmark from "../../../static/assets/xmark.png";
 import "./modal.css";
 import router from "../../core/router";
 import { store } from "../../core/store";
-// @ts-expect-error
+// @ts-ignore
 import Trash from "../../../static/assets/trash.png";
-// @ts-expect-error
+// @ts-ignore
 import Checked from "../../../static/assets/checked.png";
 import Client from "../../core/api/Api";
 import { API_URL } from "../../core/api/URLS";
@@ -30,7 +30,7 @@ export default class ChatUsersList extends Block<TProps> {
       {
         selector: ".delUser",
         events: {
-          click: (e) => {
+          click: (e: { target: { id: any; }; }) => {
             ChatApi.deleteChatUser({ chatId: id }, { userId: e.target.id });
           },
         },
@@ -38,7 +38,7 @@ export default class ChatUsersList extends Block<TProps> {
       {
         selector: ".addUser",
         events: {
-          click: (e) => {
+          click: (e: { target: { id: any; }; }) => {
             ChatApi.addChatUser({ chatId: id }, { userId: e.target.id });
           },
         },
@@ -77,16 +77,16 @@ export default class ChatUsersList extends Block<TProps> {
       this.setProps({ chatUsers: res! });
     });
   }
-  debounce(func, timeout = 300) {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func.apply(this, args);
-      }, timeout);
-    };
-  }
-  searchForUsers(value) {
+  // debounce(func, timeout = 300) {
+  //   let timer;
+  //   return (...args) => {
+  //     clearTimeout(timer);
+  //     timer = setTimeout(() => {
+  //       func.apply(this, args);
+  //     }, timeout);
+  //   };
+  // }
+  searchForUsers(value: any) {
     const data = {
       login: value,
     };
@@ -102,7 +102,7 @@ export default class ChatUsersList extends Block<TProps> {
   render() {
     let ownerId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentChat?.created_by:'';
     let userId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentUser.id:'';
-    let usersList = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().chatUsers?.filter((q) => q.id != userId):'';
+    let usersList = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().chatUsers?.filter((q: { id: any; }) => q.id != userId):'';
 
     this.children.button = new Button({
       text: "Поиск",
@@ -132,7 +132,7 @@ export default class ChatUsersList extends Block<TProps> {
                                  !!usersList
                                    ? usersList
                                        .map(
-                                         (user) =>
+                                         (user: { display_name: string; id: number; }) =>
                                            `<div class='usersList'>
                                 ${user.display_name}
                                     ${
@@ -157,7 +157,7 @@ export default class ChatUsersList extends Block<TProps> {
                                           !!this.props.searchedUsers &&
                                           !!this.props.searchedUsers.length
                                             ? this.props.searchedUsers.map(
-                                                (q) =>
+                                                (q: { display_name: string; id: number; }) =>
                                                   `<div class='usersList' id='searchResult'>
                                                 ${q.display_name}
                                                 ${
