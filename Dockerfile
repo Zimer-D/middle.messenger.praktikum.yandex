@@ -1,14 +1,14 @@
 FROM node:16.18.1
 
-WORKDIR /var/www/app
-COPY . /var/www/app
+WORKDIR /app
 
 COPY package*.json ./
 
 RUN npm install
 
+COPY . .
 
-RUN npm run start
+RUN npm run build
 
 EXPOSE 3000
 
