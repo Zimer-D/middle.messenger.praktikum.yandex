@@ -1,4 +1,4 @@
-import Store  from './Store';
+import Store  from './store';
 
 describe('score/Store', () => {
     it('установка состояния', () => {
