@@ -6,8 +6,9 @@
     "node": "v16.18.1"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack",
-    "start": "cross-env NODE_ENV=production  webpack serve --config webpack.config.js",
+    "dev": "cross-env NODE_ENV=development webpack serve",
+    "start": "cross-env NODE_ENV=production webpack && node ./server.js",
+    "build": "cross-env NODE_ENV=production webpack",
     "test": "jest",
     "lint": "eslint",
     "tsc": "tsc"
