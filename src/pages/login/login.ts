@@ -92,7 +92,7 @@ export default class Login extends Block<TProps> {
       errors: this.errors,
       value: this.props.loginValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ loginValue: e.target.value });
           const errorMessage = validateLogin(this.props.loginValue);
           this.errors.push(errorMessage);
@@ -115,7 +115,7 @@ export default class Login extends Block<TProps> {
       errors: this.errors,
       value: this.props.passwordValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ passwordValue: e.target.value });
           const errorMessage = validatePassword(this.props.passwordValue);
           this.errors.push(errorMessage);

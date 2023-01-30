@@ -36,7 +36,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  deleteChat(chatId:any) {
+  deleteChat(chatId: any) {
     console.log("УДАЛЯЕМ ЧАТ");
     const data = {
       chatId: Object.keys(chatId).map(function (key) {
@@ -47,7 +47,7 @@ class ChatApi {
       data: JSON.stringify(data),
     })
       .then(() => {
-        router.go('/chats');
+        router.go("/chats");
         alert("Чат удален");
       })
       .catch((e) => {
@@ -55,7 +55,7 @@ class ChatApi {
       });
   }
 
-  getChatUsers(id:any) {
+  getChatUsers(id: any) {
     console.log("ПОЛУЧАЕМ ЮЗЕРОВ");
     return Client.get(`${API_URL}/chats/${id}/users`)
       .then((chatUsers: any) => {
@@ -67,7 +67,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  deleteChatUser(chatId:any, userId:any) {
+  deleteChatUser(chatId: any, userId: any) {
     console.log("УДАЛЯЕМ ЮЗЕРОВ");
     const data = {
       users: [
@@ -89,7 +89,7 @@ class ChatApi {
         console.log(e);
       });
   }
-  addChatUser(chatId:any, userId:any) {
+  addChatUser(chatId: any, userId: any) {
     console.log("ДОБАВЛЯЕМ ЮЗЕРОВ");
     const data = {
       users: [
@@ -137,7 +137,7 @@ class ChatApi {
   }
   public updateAvatar(data: FormData) {
     return Client.put(`${API_URL}/chats/avatar`, {
-      data: data
+      data: data,
     })
       .then((avatar: any) => {
         alert("Аватар обновлен");

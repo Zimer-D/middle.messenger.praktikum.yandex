@@ -12,7 +12,6 @@ import { Button } from "../buttons/button";
 import Trash from "../../../static/assets/trash.png";
 import { RESOURCES_URL } from "../../core/api/URLS";
 
-
 export class ChatList extends Block<TProps> {
   constructor(props: TProps = {}) {
     const defaultValues = {
@@ -31,7 +30,7 @@ export class ChatList extends Block<TProps> {
       {
         selector: ".chatListItem",
         events: {
-          click: (e: { target: { id: any; }; }) => {
+          click: (e: { target: { id: string|number } }) => {
             router.go(`/chats/${e.target.id}`);
           },
         },
@@ -39,10 +38,14 @@ export class ChatList extends Block<TProps> {
       {
         selector: ".delChat",
         events: {
-          click: (e: { target: { id: any; }; }) => {
-            router.go('/chats')
-            this.setProps({chatList: this.props.chatList.filter((q: { id: any; })=>q.id != e.target.id)})
-            store.setState({currentChat: null})
+          click: (e: { target: { id: string|number } }) => {
+            router.go("/chats");
+            this.setProps({
+              chatList: this.props.chatList.filter(
+                (q: { id: string|number }) => q.id != e.target.id
+              ),
+            });
+            store.setState({ currentChat: null });
             ChatApi.deleteChat({ chatId: e.target.id });
           },
         },
@@ -90,7 +93,6 @@ export class ChatList extends Block<TProps> {
     });
   }
   render() {
-    // console.log(3434, this.props.chatSearchValue, this.props.chatList);
     this.children.button = new Button({
       text: "Создать чат",
       type: "button",

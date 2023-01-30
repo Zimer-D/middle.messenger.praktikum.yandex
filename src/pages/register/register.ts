@@ -25,14 +25,13 @@ export default class Register extends Block<TProps> {
       passwordValue: "",
       confirmPasswordValue: "",
       phoneValue: "",
-      // isLoading: store.getState().registerPage.isLoading,
     };
 
     const customEvents = [
       {
         selector: "#registerForm",
         events: {
-          submit: (e: any) => {
+          submit: (e: { preventDefault: () => void; target: HTMLFormElement; }) => {
             e.preventDefault();
             const target = e.target as HTMLFormElement;
             const formData = getFormData([...target]);
@@ -96,7 +95,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.emailValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ emailValue: e.target.value });
           const errorMessage = validateEmail(this.props.emailValue);
           this.errors.push(errorMessage);
@@ -119,7 +118,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.loginValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ loginValue: e.target.value });
           const errorMessage = validateLogin(this.props.loginValue);
           this.errors.push(errorMessage);
@@ -141,7 +140,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.firstNameValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ firstNameValue: e.target.value });
           const errorMessage = validateName(this.props.firstNameValue);
           this.errors.push(errorMessage);
@@ -163,7 +162,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.secondNameValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ secondNameValue: e.target.value });
           const errorMessage = validateName(this.props.secondNameValue);
           this.errors.push(errorMessage);
@@ -186,7 +185,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.phoneValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ phoneValue: e.target.value });
           const errorMessage = validatePhone(this.props.phoneValue);
           this.errors.push(errorMessage);
@@ -209,7 +208,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.passwordValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ passwordValue: e.target.value });
           const errorMessage = validatePassword(this.props.passwordValue);
           this.errors.push(errorMessage);
@@ -231,7 +230,7 @@ export default class Register extends Block<TProps> {
       errors: this.errors,
       value: this.props.confirmPasswordValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ confirmPasswordValue: e.target.value });
           const errorMessage = validatePassword(
             this.props.confirmPasswordValue

@@ -30,7 +30,7 @@ export default class ChatUsersList extends Block<TProps> {
       {
         selector: ".delUser",
         events: {
-          click: (e: { target: { id: any; }; }) => {
+          click: (e: { target: { id: string|number } }) => {
             ChatApi.deleteChatUser({ chatId: id }, { userId: e.target.id });
           },
         },
@@ -38,7 +38,7 @@ export default class ChatUsersList extends Block<TProps> {
       {
         selector: ".addUser",
         events: {
-          click: (e: { target: { id: any; }; }) => {
+          click: (e: { target: { id: string|number } }) => {
             ChatApi.addChatUser({ chatId: id }, { userId: e.target.id });
           },
         },
@@ -66,8 +66,8 @@ export default class ChatUsersList extends Block<TProps> {
 
     super(propsAndChildren, customEvents);
     // if(!!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0){return}else{
-    this.getUsers(id)
-  // };
+    this.getUsers(id);
+    // };
   }
   getUsers(chatId: number | null) {
     if (!chatId) {
@@ -77,15 +77,7 @@ export default class ChatUsersList extends Block<TProps> {
       this.setProps({ chatUsers: res! });
     });
   }
-  // debounce(func, timeout = 300) {
-  //   let timer;
-  //   return (...args) => {
-  //     clearTimeout(timer);
-  //     timer = setTimeout(() => {
-  //       func.apply(this, args);
-  //     }, timeout);
-  //   };
-  // }
+
   searchForUsers(value: any) {
     const data = {
       login: value,
@@ -100,9 +92,21 @@ export default class ChatUsersList extends Block<TProps> {
   }
 
   render() {
-    let ownerId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentChat?.created_by:'';
-    let userId = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().currentUser.id:'';
-    let usersList = !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?store.getState().chatUsers?.filter((q: { id: any; }) => q.id != userId):'';
+    let ownerId =
+      !!this.props.currentChat &&
+      Object.keys(this.props.currentChat).length !== 0
+        ? store.getState().currentChat?.created_by
+        : "";
+    let userId =
+      !!this.props.currentChat &&
+      Object.keys(this.props.currentChat).length !== 0
+        ? store.getState().currentUser.id
+        : "";
+    let usersList =
+      !!this.props.currentChat &&
+      Object.keys(this.props.currentChat).length !== 0
+        ? store.getState().chatUsers?.filter((q: { id: any }) => q.id != userId)
+        : "";
 
     this.children.button = new Button({
       text: "Поиск",
@@ -132,7 +136,10 @@ export default class ChatUsersList extends Block<TProps> {
                                  !!usersList
                                    ? usersList
                                        .map(
-                                         (user: { display_name: string; id: number; }) =>
+                                         (user: {
+                                           display_name: string;
+                                           id: number;
+                                         }) =>
                                            `<div class='usersList'>
                                 ${user.display_name}
                                     ${
@@ -157,7 +164,10 @@ export default class ChatUsersList extends Block<TProps> {
                                           !!this.props.searchedUsers &&
                                           !!this.props.searchedUsers.length
                                             ? this.props.searchedUsers.map(
-                                                (q: { display_name: string; id: number; }) =>
+                                                (q: {
+                                                  display_name: string;
+                                                  id: number;
+                                                }) =>
                                                   `<div class='usersList' id='searchResult'>
                                                 ${q.display_name}
                                                 ${
