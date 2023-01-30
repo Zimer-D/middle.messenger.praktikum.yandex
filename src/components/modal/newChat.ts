@@ -43,7 +43,7 @@ export default class NewChatModal extends Block<TProps> {
     super(propsAndChildren, customEvents);
   }
 
-  handleSubmit(formData:any) {
+  handleSubmit(formData: any) {
     this.setProps({ isLoading: true });
     ChatApi.newChat(formData).then(() => {
       this.setProps({ isLoading: false, isOpened: false, title: "" });

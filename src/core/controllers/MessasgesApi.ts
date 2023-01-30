@@ -1,7 +1,5 @@
-
 import { API_WS_URL } from "../api/URLS";
 import { store } from "../store";
-
 
 class MessageApi {
   private _ws: WebSocket;
@@ -43,13 +41,13 @@ class MessageApi {
   }
 
   private _onMessage(response: MessageEvent) {
-    let data ;
-    if(response) {
+    let data;
+    if (response) {
       try {
-         data = JSON.parse(response.data);
-      } catch(e) {
-          alert('Что-nо пошло не так');
-          console.log(e) 
+        data = JSON.parse(response.data);
+      } catch (e) {
+        alert("Что-nо пошло не так");
+        console.log(e);
       }
     }
     if (Array.isArray(data)) {

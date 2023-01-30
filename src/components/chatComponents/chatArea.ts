@@ -18,16 +18,13 @@ import { getFormData } from "../../utils/GetData";
 import { Textarea } from "../input/textarea";
 import ChatUsersList from "../modal/chatUsersList";
 import { RESOURCES_URL } from "../../core/api/URLS";
-// import router from "../../core/router";
+
 
 function handelClick() {
   //@ts-ignore
   document.getElementById("input_avatar").click();
 }
-document.addEventListener('DOMContentLoaded', function() {
-  const element = document.getElementById('messages');
-		element!.scrollIntoView(false)
-}, false);
+
 export class ChatArea extends Block<TProps> {
   constructor(props: TProps = {}) {
     // const { pageId = null } = router.getParams();
@@ -82,8 +79,8 @@ export class ChatArea extends Block<TProps> {
             }
             const [file] = files;
             formData.append("avatar", file);
-             formData.append("chatId", this.props.currentChat.id);
-            ChatApi.updateAvatar( formData);
+            formData.append("chatId", this.props.currentChat.id);
+            ChatApi.updateAvatar(formData);
           },
         },
       },
@@ -103,17 +100,12 @@ export class ChatArea extends Block<TProps> {
   }
 
   componentDidMount() {
-
     store.subscribe((state) => {
       this.setProps({
         messages: state.messages,
         currentChat: state.currentChat,
       });
     });
-  //   const updateScroll = () =>{
-  //     const element = document.getElementById("messages");
-  //     element!.scrollTop = element!.scrollHeight;
-  // }
   }
 
   handleSubmit(formData: any) {
@@ -122,12 +114,10 @@ export class ChatArea extends Block<TProps> {
     ChatApi.getChats();
   }
   public scrollDown() {
-    const dialogBody = document.getElementById('.chatArea');
-        dialogBody!.scrollTop = dialogBody!.scrollHeight;
+    const dialogBody = document.getElementById(".chatArea");
+    dialogBody!.scrollTop = dialogBody!.scrollHeight;
   }
   render() {
-// console.log(33, this.props.currentChat)
-// console.log(44, Object.keys(this.props.currentChat).length)
     const currentUser = this.props.currentUserId;
     this.children.messageInput = new Textarea({
       class: "message",
@@ -137,7 +127,7 @@ export class ChatArea extends Block<TProps> {
       errors: this.props.errors,
       value: this.props.messageValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ messageValue: e.target.value });
         },
       },
@@ -146,25 +136,32 @@ export class ChatArea extends Block<TProps> {
     const userActions = new UserActions();
     this.children.fileToSend = fileToSend;
     this.children.userActions = userActions;
-    !!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0 ?
-    this.children.usersList = new ChatUsersList(this.props.currentChat?.id):'';
+    !!this.props.currentChat && Object.keys(this.props.currentChat).length !== 0
+      ? (this.children.usersList = new ChatUsersList(
+          this.props.currentChat?.id
+        ))
+      : "";
     const temp = `
         <div class="chat-area">   
         <div  class="chatAreaHeader">
         
                 <div class="chat-title">
-                ${!!this.props.currentChat&&Object.keys(this.props.currentChat).length!==0?
-                  `  <div class="chat-avatar">
+                ${
+                  !!this.props.currentChat &&
+                  Object.keys(this.props.currentChat).length !== 0
+                    ? `  <div class="chat-avatar">
                         <img src=${
-                              !!this.props.currentChat.avatar
-                                ? RESOURCES_URL + this.props.currentChat?.avatar
-                                : Avatar
-                            } alt="noavatar" />
+                          !!this.props.currentChat.avatar
+                            ? RESOURCES_URL + this.props.currentChat?.avatar
+                            : Avatar
+                        } alt="noavatar" />
                         <input type="file" name=" " id='input_avatar' style="opacity:0">
                         <div id="change_avatar" class="upload">
                         <img src=${Edit} alt="edit" style='height:22px' />
                         </div>
-                        </div>`:''}
+                        </div>`
+                    : ""
+                }
                         <% this.usersList %>
                         <div id='chatUsers' class='chatMainTitle'>
                             ${this.props.currentChat?.title || ""}

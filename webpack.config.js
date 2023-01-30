@@ -12,10 +12,7 @@ const isProd = process.env.NODE_ENV === "production";
 const optimization = () => {
   const config = {};
   if (isProd) {
-    config.minimizer = [
-      new CssMinimizerPlugin(),
-      new TerserWebpackPlugin()
-    ];
+    config.minimizer = [new CssMinimizerPlugin(), new TerserWebpackPlugin()];
     config.minimize = true;
   }
   return config;
@@ -26,7 +23,7 @@ module.exports = {
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.[hash].js"
+    filename: "main.bundle.[hash].js"
   },
   resolve: {
     extensions: [".ts", ".js", ".json", ".svg"]
@@ -40,48 +37,49 @@ module.exports = {
     hot: isDev
   },
   module: {
-    rules: [{
-      test: /\.(woff(2)?|eot|ttf|otf)$/,
-      type: "asset/resource"
-    },
-    {
-      test: /\.css$/i,
-      use: [
-        MiniCssExtractPlugin.loader,
-        "css-loader",
-        {
-          loader: "postcss-loader",
-          options: {
-            postcssOptions: {
-              plugins: [
-                [
-                  "postcss-preset-env",
-                  {
-                    // Options
-                  }
+    rules: [
+      {
+        test: /\.(woff(2)?|eot|ttf|otf)$/,
+        type: "asset/resource"
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    "postcss-preset-env",
+                    {
+                      // Options
+                    }
+                  ]
                 ]
-              ]
+              }
             }
           }
-        }
-      ]
-    },
-    {
-      test: /\.ts?$/,
-      use: [
-        {
-          loader: "ts-loader",
-          options: {
-            configFile: path.resolve(__dirname, "tsconfig.json")
+        ]
+      },
+      {
+        test: /\.ts?$/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              configFile: path.resolve(__dirname, "tsconfig.json")
+            }
           }
-        }
-      ],
-      exclude: /(node_modules)/
-    },
-    {
-      test: /\.(svg|png|jpg|gif)$/,
-      use: ["file-loader?name=./images/template/[name].[ext]"]
-    }
+        ],
+        exclude: /(node_modules)/
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: ["file-loader?name=./images/template/[name].[ext]"]
+      }
     ]
   },
   optimization: optimization(),
@@ -105,5 +103,4 @@ module.exports = {
     }),
     new CleanWebpackPlugin()
   ]
-
 };

@@ -1,7 +1,6 @@
 import { RecordItem } from "../../../types/types";
 
-
-type HTTPMethod = (url: string, options?: any) => Promise<unknown>
+type HTTPMethod = (url: string, options?: any) => Promise<unknown>;
 
 enum METHODS {
   GET = "GET",

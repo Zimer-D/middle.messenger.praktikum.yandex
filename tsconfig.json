@@ -2,9 +2,11 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "commonjs",
+    "baseUrl": "./",
+    "outDir": "./dist", 
     "strict": true,
     "esModuleInterop": true,
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -19,6 +21,6 @@
   "include": [
     "src/modules.d.ts",
     "src",
-    "types/types.ts"
+    "src/types/types.ts"
   ]
 }

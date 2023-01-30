@@ -51,7 +51,7 @@ export default class Profile extends Block<TProps> {
         selector: "#backToChats",
         events: {
           click: () => {
-           router.go('/chats')
+            router.go("/chats");
           },
         },
       },

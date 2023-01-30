@@ -10,7 +10,6 @@ import "./styles/style.css";
 import router from "./core/router";
 import Authorization from "./core/controllers/Authorization";
 
-
 router
   .setPublicRedirect("/chats")
   .setProtectedRedirect("/login")

@@ -17,7 +17,7 @@ export default class ChangePassword extends Block<TProps> {
     const defaultValues = {
       oldPasswordValue: "",
       newPasswordValue: "",
-      confirmPasswordValue: ""
+      confirmPasswordValue: "",
     };
 
     const customEvents = [

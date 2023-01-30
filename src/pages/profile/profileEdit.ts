@@ -17,7 +17,6 @@ import { getFormData } from "../../utils/GetData";
 import ProfileApi from "../../core/controllers/Profile";
 import { RESOURCES_URL } from "../../core/api/URLS";
 
-
 export default class EditProfile extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
