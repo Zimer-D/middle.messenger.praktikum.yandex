@@ -19,7 +19,7 @@ export default class NewChatModal extends Block<TProps> {
       {
         selector: "#newChat",
         events: {
-          submit: (e: any) => {
+          submit: (e: { preventDefault: () => void; target: HTMLFormElement; }) => {
             e.preventDefault();
             const target = e.target as HTMLFormElement;
             const formData = getFormData([...target]);

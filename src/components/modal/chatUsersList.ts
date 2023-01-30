@@ -77,15 +77,7 @@ export default class ChatUsersList extends Block<TProps> {
       this.setProps({ chatUsers: res! });
     });
   }
-  // debounce(func, timeout = 300) {
-  //   let timer;
-  //   return (...args) => {
-  //     clearTimeout(timer);
-  //     timer = setTimeout(() => {
-  //       func.apply(this, args);
-  //     }, timeout);
-  //   };
-  // }
+
   searchForUsers(value: any) {
     const data = {
       login: value,

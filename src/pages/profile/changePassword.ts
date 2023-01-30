@@ -92,7 +92,7 @@ export default class ChangePassword extends Block<TProps> {
       type: "password",
       name: "oldPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ oldPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.oldPasswordValue);
           this.errors.push(errorMessage);
@@ -115,7 +115,7 @@ export default class ChangePassword extends Block<TProps> {
       errors: this.errors,
       name: "newPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ newPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.newPasswordValue);
           this.errors.push(errorMessage);
@@ -137,7 +137,7 @@ export default class ChangePassword extends Block<TProps> {
       errors: this.errors,
       name: "confirmPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ confirmPasswordValue: e.target.value });
           const errorMessage = validatePassword(
             this.props.confirmPasswordValue
