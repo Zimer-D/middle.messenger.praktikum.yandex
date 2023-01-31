@@ -5,7 +5,7 @@ export default class Error500 extends Block<TProps> {
   render() {
     const temp = `
     <main>
-    <div class='container'>
+    <div class="container">
         <div class="errors">
           <h1>
                 500
