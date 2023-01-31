@@ -38,7 +38,7 @@ export type ChatListProps = {
   items: Array<any>;
 };
 
-export type ChatAreaProps = { 1; messages: Array<any> };
+export type ChatAreaProps = { messages: Array<any> };
 
 export type ProfileDataProps = {
   key: string;

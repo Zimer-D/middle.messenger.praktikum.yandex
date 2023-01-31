@@ -1,10 +1,8 @@
 import { TProps } from "../../../types/types";
 
 export default class Templator {
-  // Регулярное выражение для поиска тегов шаблонизатора вида <% %>
   private TEMPLATE_TAG: RegExp = /<%(.*?)?%>/g;
 
-  // Регулярное выражение для поиска js содержимого внутри тегов шаблонизатора
   private TEMPLATE_TAG_JS_CONTENT: RegExp =
     /(^( )?(for|if|else|switch|case|break|{|}))(.*)?/g;
 
@@ -24,11 +22,6 @@ export default class Templator {
   private _compileTemplate = () => {
     const tmpl: string = this._template;
     const { props } = this;
-
-    // Объявляем переменную templateFunc.
-    // Она представляет собой строку с JS синтаксисом,
-    // который будем дополнять построчно при обходе шаблона
-    // Каждую новую строку пишем в массив templateFuncRows
 
     let templateFunc: string = "let templateFuncRows=[]; ";
 
@@ -55,24 +48,15 @@ export default class Templator {
       return addRow;
     };
 
-    // Проходимся по шаблону и ищем теги вида <% %>
-    while ((match = this.TEMPLATE_TAG.exec(tmpl))) {
-      // Отправляем в ф-цию addRow() сначала строку находящуююся до тега <% %>,
-      // а потом содержимое тега <% %>
-      addRow(tmpl.slice(rowStartPoint, match.index), false)(match[1], true);
 
-      // Обновляем rowStartPoint для того, чтобы в след. раз
-      // отправить ф-ции addRow строку не с самого начала шаблона
-      // а с последнего найденного тега <% %>
+    while ((match = this.TEMPLATE_TAG.exec(tmpl))) {
+
+      addRow(tmpl.slice(rowStartPoint, match.index), false)(match[1], true);
       rowStartPoint = match.index + match[0].length;
     }
 
     addRow(tmpl.substr(rowStartPoint, tmpl.length - rowStartPoint), false);
-
-    // Конвертируем массив строк templateFuncRows в единую JS строку
     templateFunc += 'return templateFuncRows.join("");';
-
-    // Генерируем реальную JS функцию из строки templateFunc, приправив ее пропсами
     return new Function(templateFunc).apply(props);
   };
 }

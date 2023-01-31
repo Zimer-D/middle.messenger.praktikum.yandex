@@ -1,17 +1,16 @@
 import { TProps } from "../../../types/types";
 import Block from "../../core/block/Block";
 import "./chat.css";
-//@ts-expect-error
+// @ts-ignore
 import Avatar from "../../../static/assets/avatar.png";
 import { store } from "../../core/store";
 import ChatApi from "../../core/controllers/ChatApi";
 import NewChatModal from "../modal/newChat";
 import router from "../../core/router";
 import { Button } from "../buttons/button";
-// @ts-expect-error
+// @ts-ignore
 import Trash from "../../../static/assets/trash.png";
 import { RESOURCES_URL } from "../../core/api/URLS";
-
 
 export class ChatList extends Block<TProps> {
   constructor(props: TProps = {}) {
@@ -31,7 +30,7 @@ export class ChatList extends Block<TProps> {
       {
         selector: ".chatListItem",
         events: {
-          click: (e) => {
+          click: (e: { target: { id: string|number } }) => {
             router.go(`/chats/${e.target.id}`);
           },
         },
@@ -39,13 +38,15 @@ export class ChatList extends Block<TProps> {
       {
         selector: ".delChat",
         events: {
-          click: (e) => {
-            console.log(11, this.props.chatList)
-            router.go('/chats')
-            this.setProps({chatList: this.props.chatList.filter(q=>q.id != e.target.id)})
-            store.setState({currentChat: null})
+          click: (e: { target: { id: string|number } }) => {
+            router.go("/chats");
+            this.setProps({
+              chatList: this.props.chatList.filter(
+                (q: { id: string|number }) => q.id != e.target.id
+              ),
+            });
+            store.setState({ currentChat: null });
             ChatApi.deleteChat({ chatId: e.target.id });
-            console.log(22, this.props.chatList)
           },
         },
       },
@@ -92,7 +93,6 @@ export class ChatList extends Block<TProps> {
     });
   }
   render() {
-    // console.log(3434, this.props.chatSearchValue, this.props.chatList);
     this.children.button = new Button({
       text: "Создать чат",
       type: "button",

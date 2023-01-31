@@ -1,4 +1,3 @@
-import { RecordItem } from "../../../types/types";
 import router from "../router";
 import Client from "../api/Api";
 import { store } from "../store";
@@ -26,7 +25,7 @@ class AuthController {
       .then(() => {
         router.go("/chats");
       })
-      .catch((e) =>
+      .catch(() =>
         alert("Что-то пошло не так, возможно неверный логин или пароль")
       );
   }

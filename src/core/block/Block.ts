@@ -1,17 +1,14 @@
 import { Nullable, TProps, Values } from "../../../types/types";
 import UUID from "../../utils/GenerateId";
 import EventBus from "../eventBus/EventBus";
-import router from "../router";
 import Templator from "../templator/Templator";
 
-
-
 export interface BlockConstructable<Props extends {}> {
-  new(props: any): Block<Props>;
+  new (props: any): Block<Props>;
 }
 type Events = Values<typeof Block.EVENTS>;
 
-class Block<Props extends {}>{
+class Block<Props extends {}> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
@@ -41,7 +38,7 @@ class Block<Props extends {}>{
 
     const eventBus = new EventBus();
     //@ts-ignore
-    this.props = this._makePropsProxy(props || {} as Props);
+    this.props = this._makePropsProxy(props || ({} as Props));
 
     this.eventBus = () => eventBus;
 
@@ -97,7 +94,7 @@ class Block<Props extends {}>{
       }
     });
 
-    this.customEvents.forEach((elem) => {
+    this.customEvents.forEach((elem: any) => {
       Object.keys(elem.events).forEach((eventName) => {
         if (this.element) {
           if (this.element!.querySelectorAll(elem.selector).length > 0) {
@@ -142,7 +139,7 @@ class Block<Props extends {}>{
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
-  protected componentDidMount() { }
+  protected componentDidMount() {}
 
   protected dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
@@ -266,7 +263,7 @@ class Block<Props extends {}>{
     }
   }
 
-  public onDestroy() { }
+  public onDestroy() {}
 }
 
 export default Block;

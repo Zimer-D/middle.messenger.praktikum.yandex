@@ -1,4 +1,4 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { Input } from "../../components/input/input";
@@ -8,7 +8,7 @@ import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import { validateLogin, validatePassword } from "../../utils/Validation";
 
-export default class Login extends Block {
+export default class Login extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
@@ -52,7 +52,6 @@ export default class Login extends Block {
     const valid =
       this.errors.filter((n) => n).length == 0 &&
       myTarget.filter((q) => q.value === "");
-    const formData = {};
 
     if (valid) {
       store.setState({
@@ -93,7 +92,7 @@ export default class Login extends Block {
       errors: this.errors,
       value: this.props.loginValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ loginValue: e.target.value });
           const errorMessage = validateLogin(this.props.loginValue);
           this.errors.push(errorMessage);
@@ -116,7 +115,7 @@ export default class Login extends Block {
       errors: this.errors,
       value: this.props.passwordValue,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ passwordValue: e.target.value });
           const errorMessage = validatePassword(this.props.passwordValue);
           this.errors.push(errorMessage);

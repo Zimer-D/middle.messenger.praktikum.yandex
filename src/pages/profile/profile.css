@@ -25,17 +25,16 @@
   opacity: 1;
   cursor: pointer;
 }
-.icon-div{
+.icon-div {
   display: grid;
   flex-direction: column;
   grid-template-columns: 40px auto;
 }
-.icon-wrapper{
+.icon-wrapper {
   display: flex;
   align-items: center;
 }
-.icon-wrapper> img {
-
+.icon-wrapper > img {
   cursor: pointer;
   &:hover {
     box-shadow: 0px 5px 10px 2px var(--dark-gray);

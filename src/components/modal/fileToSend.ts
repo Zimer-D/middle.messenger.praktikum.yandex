@@ -1,10 +1,10 @@
 import Block from "../../core/block/Block";
 import "./modal.css";
-// @ts-expect-error
+// @ts-ignore
 import Image from "../../../static/assets/image.png";
-// @ts-expect-error
+// @ts-ignore
 import Document from "../../../static/assets/document.png";
-// @ts-expect-error
+// @ts-ignore
 import Location from "../../../static/assets/location.png";
 import { TProps } from "../../../types/types";
 

@@ -1,24 +1,23 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { ProfileEdit } from "../../components/profile/profileEdit";
 import Block from "../../core/block/Block";
 import "./profile.css";
-// @ts-expect-error
+// @ts-ignore
 import Avatar from "../../../static/assets/avatar.png";
 import { validatePassword } from "../../utils/Validation";
 import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import ProfileApi from "../../core/controllers/Profile";
 
-export default class ChangePassword extends Block {
+export default class ChangePassword extends Block<TProps> {
   errors = new Array();
   constructor(props: TProps) {
     const defaultValues = {
       oldPasswordValue: "",
       newPasswordValue: "",
       confirmPasswordValue: "",
-      // isLoading: store.getState().passwordEditPage.isLoading,
     };
 
     const customEvents = [
@@ -49,7 +48,6 @@ export default class ChangePassword extends Block {
     const valid =
       this.errors.filter((n) => n).length == 0 &&
       myTarget.filter((q) => q.value === "");
-    const formData = {};
     if (target.newPassword !== target.confirmPassword) {
       this.errors.push("Пароли не совпадают");
       this.render();
@@ -94,7 +92,7 @@ export default class ChangePassword extends Block {
       type: "password",
       name: "oldPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ oldPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.oldPasswordValue);
           this.errors.push(errorMessage);
@@ -117,7 +115,7 @@ export default class ChangePassword extends Block {
       errors: this.errors,
       name: "newPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ newPasswordValue: e.target.value });
           const errorMessage = validatePassword(this.props.newPasswordValue);
           this.errors.push(errorMessage);
@@ -139,7 +137,7 @@ export default class ChangePassword extends Block {
       errors: this.errors,
       name: "confirmPassword",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ confirmPasswordValue: e.target.value });
           const errorMessage = validatePassword(
             this.props.confirmPasswordValue
@@ -171,7 +169,6 @@ export default class ChangePassword extends Block {
     this.children.confirmPassword = confirmPassword;
     this.children.header = header;
     this.children.button = button;
-    const ctx = this.children;
     this.showErrors();
 
     const temp = `

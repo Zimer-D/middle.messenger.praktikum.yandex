@@ -1,10 +1,10 @@
-import { PageType, TProps } from "../../../types/types";
+import { TProps } from "../../../types/types";
 import { Button } from "../../components/buttons/button";
 import { Header } from "../../components/header/header";
 import { ProfileEdit } from "../../components/profile/profileEdit";
 import Block from "../../core/block/Block";
 import "./profile.css";
-// @ts-expect-error
+//@ts-ignore
 import Avatar from "../../../static/assets/avatar.png";
 import {
   validateEmail,
@@ -16,7 +16,6 @@ import { store } from "../../core/store";
 import { getFormData } from "../../utils/GetData";
 import ProfileApi from "../../core/controllers/Profile";
 import { RESOURCES_URL } from "../../core/api/URLS";
-
 
 export default class EditProfile extends Block<TProps> {
   errors = new Array();
@@ -74,7 +73,6 @@ export default class EditProfile extends Block<TProps> {
     const valid =
       this.errors.filter((n) => n).length == 0 &&
       myTarget.filter((q) => q.value === "");
-    const formData = {};
 
     if (valid) {
       store.setState({
@@ -116,7 +114,7 @@ export default class EditProfile extends Block<TProps> {
       errors: this.errors,
       value: this.props.email,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ emailValue: e.target.value });
           const errorMessage = validateEmail(this.props.emailValue);
           this.errors.push(errorMessage);
@@ -139,7 +137,7 @@ export default class EditProfile extends Block<TProps> {
       errors: this.errors,
       value: this.props.login,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ loginValue: e.target.value });
           const errorMessage = validateLogin(this.props.loginValue);
           this.errors.push(errorMessage);
@@ -161,7 +159,7 @@ export default class EditProfile extends Block<TProps> {
       errors: this.errors,
       value: this.props.first_name,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ firstNameValue: e.target.value });
           const errorMessage = validateName(this.props.firstNameValue);
           this.errors.push(errorMessage);
@@ -183,7 +181,7 @@ export default class EditProfile extends Block<TProps> {
       errors: this.errors,
       value: this.props.second_name,
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ secondNameValue: e.target.value });
           const errorMessage = validateName(this.props.secondNameValue);
           this.errors.push(errorMessage);
@@ -211,7 +209,7 @@ export default class EditProfile extends Block<TProps> {
       errors: this.errors,
       name: "phone",
       events: {
-        blur: (e: any) => {
+        blur: (e: { target: { value: any; }; }) => {
           this.setProps({ phoneValue: e.target.value });
           const errorMessage = validatePhone(this.props.phone);
           this.errors.push(errorMessage);
@@ -242,7 +240,6 @@ export default class EditProfile extends Block<TProps> {
     this.children.nickName = nickName;
     this.children.phone = phone;
     this.children.header = header;
-    const ctx = this.children;
     this.showErrors();
     const temp = `
     <main> 
